@@ -1,11 +1,11 @@
-Système de gestion d'arbres généalogiques.
+#Système de gestion d'arbres généalogiques
 
 
 Indiquer un numéro de génération des ancêtres par rapport à un individu.
 Numéro de génération => calculer distance entre individu de référence et ancêtre considéré
 L'individu est de génération 0 puis ses parents 1 etc..
 
-Chaque noeud :
+#Chaque noeud :
 - id unique de l'individu
 - informations sur l'individu => nom, prénom, sexe, date de anissance, decès ...
 - Racine de l'arbre =  noeud correspondant à un individu
@@ -29,14 +29,14 @@ Un utilisateur doit pouvoir manipuler des arbres généalogiques (définition, m
 
 En inventer d'autres...
 
-OBJECTIF :
+#OBJECTIF :
 
 - Manipuler un arbre généalogique.
 - Module Arbre_Genealog qui s'appuie sur un module générique qui spécifie et implante une structure de données de type Arbre_Bin
 - Tester le programme (pragma...)
 - Proposer un menu de commandes qui donne accès aux fonctionnalités
 
-Ne pas oublier de faire :
+#Ne pas oublier de faire :
 - Ecriture des spécifications pour tous les programmes et sous-programmes
 - Conception en utilisant la méthode des raffinages
 - Justification des choix des types de données manipulés
@@ -47,7 +47,7 @@ Répertoire "livrables" qui contient que les livrables explicitement demandés
 Répertoire "src" qui contient les sources de l'appli
 Répertoire "doc" pour le rapport
 
-LIVRABLES :
+#LIVRABLES :
 - Spécification des modules en Ada (.ads) => définitino des principaux types dans la partie privée
 - Programmes de test (test_*.adb)
 - Une archive avec le code source final (source.tar)
