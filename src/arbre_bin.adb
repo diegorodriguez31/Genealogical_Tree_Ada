@@ -1,23 +1,23 @@
 package body Arbre_Bin is
 
-   -- Initialiser un AB Abr. L’AB est vide.
-   function Initialiser return T_Arb is
-      Abr  : T_Arb;
+   -- Initialiser un AB arbrere. L’AB est vide.
+   function initialiser return T_Arb is
+      arbre  : T_Arb;
    begin
-      Abr := null;
-      return Abr;
+      arbre := null;
+      return arbre;
    end Initialiser;
 
-   -- Est-ce qu’un AB Abr est vide ?
-   function Est_Vide (Abr : T_Arb) return Boolean is
+   -- Est-ce qu’un AB arbrere est vide ?
+   function Est_Vide (arbre : T_Arb) return Boolean is
    begin
-      return Abr = null;
+      return arbre = null;
    end Est_Vide;
 
    --Obtenir le nombre d’éléments d’un AB.
-   function Taille (Abr : in T_Arb) return Integer is
+   function Taille (arbre : in T_Arb) return Integer is
    begin
-      if not Est_Vide(Abr) then
+      if not Est_Vide(arbre) then
          return taille(abr.all.sous_arbre_gauche) + taille(abr.all.sous_arbre_droit) + 1;
       else
          return 0;
@@ -25,48 +25,67 @@ package body Arbre_Bin is
    end Taille;
 
 
-   -- Insérer la donnée dans l’AB Abr.
-   procedure inserer (Abr : in out T_Arb ; Donnee : in T_Element)is
+   -- Insérer la donnée dans l’AB arbre.
+   procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean) is
+      element_prec : T_Element;
    begin
-      if Est_Vide(Abr) then
-         Abr :=  new T_Noeud'(Donnee, null, null);
+      if Est_Vide(arbre) then
+         arbre :=  new T_Noeud'(nouvel_element, null, null);
       else
-         if InferieurDonnee(Donnee, Abr.all.Donnee) then
-            Inserer(Abr.all.Sous_Arbre_Gauche, Donnee);
+         if recherche(arbre => arbre, element => nouvel_element, retourner_precedent => false) != null then
+            raise element_existant
          else
-            Inserer(Abr.all.Sous_Arbre_Droit, Donnee);
+            element_prec := recherche(arbre => arbre, element => element_precedent, retourner_precedent => false);
+            if element_prec = null then
+               raise element_absent;
+            else
+               if inserer_a_droite then
+                  if arbre.all.sous_arbre_droit != null then
+                     raise emplacement_invalide;
+                  else
+                     Inserer(arbre.all.sous_arbre_droit, nouvel_element);
+                  end if;
+               else
+                  if arbre.all.sous_arbre_gauche != null then
+                     raise emplacement_invalide;
+                  else
+                     Inserer(arbre.all.sous_arbre_gauche, nouvel_element);
+                  end if;
+               end if;
+            end if;
          end if;
       end if;
    end inserer;
 
-   -- Recherche dans l’AB Abr.
-   function est_present (Abr : T_Arb; donnee: in T_Element) return Boolean is
-      trouve : Boolean := False;
+   -- Recherche dans l’AB arbre.
+   function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Element is
+      element : T_Element;
    begin
-      if Est_Vide(Abr) then
+      element := null;
+      if Est_Vide(arbre) then
          null;
       else
-         if Abr.all.donnee = donnee then
-            trouve := True;
+         if arbre.all.element.id = element.id then
+            element := arbre.all.element;
          else
-            if SuperieurDonnee(Abr.all.donnee, donnee) then
-               trouve := Recherche(Abr.all.sous_arbre_gauche, donnee);
+            if SuperieurDonnee(arbre.all.donnee, donnee) then
+               trouve := Recherche(arbre.all.sous_arbre_gauche, donnee);
             else
-               trouve := Recherche(Abr.all.sous_arbre_droit, donnee);
+               trouve := Recherche(arbre.all.sous_arbre_droit, donnee);
             end if;
          end if;
       end if;
       return trouve;
    end est_present;
 
-   -- Modifier la donnée dans l’AB Abr.
-   procedure modifier (Abr : in out T_Arb ; src_donnee : in T_Element; tar_donnee : in T_Element) is
+   -- Modifier la donnée dans l’AB arbrere.
+   procedure modifier (arbre : in out T_Arb ; src_donnee : in T_Element; tar_donnee : in T_Element) is
       noeud : T_Arb;
    begin
-      if Est_Vide(Abr) then
+      if Est_Vide(arbre) then
          raise null_exception with "Modification d'un arbre vide impossible";
       else
-         noeud := Abr;
+         noeud := arbre;
          while (noeud.all.Donnee /= src_donnee) or (InferieurDonnee(src_donnee, noeud.all.Donnee) and noeud.all.Sous_Arbre_Gauche /= null)
            or (SuperieurDonnee(src_donnee, noeud.all.Donnee) and noeud.all.Sous_Arbre_Droit /= null) loop
             if InferieurDonnee(src_donnee, noeud.all.Donnee) then
@@ -83,19 +102,19 @@ package body Arbre_Bin is
       end if;
    end modifier;
 
-   -- Supprimer la donnée dans l’AB Abr.
-   procedure supprimer (Abr : in out T_Arb; donnee : in T_Element) is
+   -- Supprimer la donnée dans l’AB arbrere.
+   procedure supprimer (arbre : in out T_Arb; donnee : in T_Element) is
       noeud_precedent : T_Arb;
       sous_arbre_droit : T_Arb;
       noeud : T_Arb;
    begin
       Put_Line("Entré dans supprimer");
-      if Est_Vide(Abr) then
+      if Est_Vide(arbre) then
          raise null_exception with "Impossible de supprimer une valeur d'un arbre vide";
       else
          --recherche du noeud
-         noeud := Abr;
-         noeud_precedent := Abr;
+         noeud := arbre;
+         noeud_precedent := arbre;
          while (noeud.all.Donnee /= donnee) or (InferieurDonnee(donnee, noeud.all.Donnee) and noeud.all.Sous_Arbre_Gauche /= null)
            or (SuperieurDonnee(donnee, noeud.all.Donnee) and noeud.all.Sous_Arbre_Droit /= null) loop
             noeud_precedent := noeud;
@@ -114,8 +133,8 @@ package body Arbre_Bin is
             --cas d'une feuille
             if noeud.all.sous_arbre_gauche = null and noeud.all.sous_arbre_droit = null then
                Put_Line("Suppression de la feuille dans supprimer");
-               if Abr = noeud then
-                  Abr := null;
+               if arbre = noeud then
+                  arbre := null;
                else
                   if noeud = noeud_precedent.all.Sous_Arbre_Gauche then
                      noeud_precedent.Sous_Arbre_Gauche := null;
@@ -130,8 +149,8 @@ package body Arbre_Bin is
                   --sauvgarde de la partie droite du sous arbre
                   sous_arbre_droit := noeud.all.Sous_Arbre_Droit;
                   --le noeud précédent pointe sur la partie gauche du sous arbre
-                  if noeud = Abr then
-                     Abr := Abr.Sous_Arbre_Gauche;
+                  if noeud = arbre then
+                     arbre := arbre.Sous_Arbre_Gauche;
                   else
                      if noeud = noeud_precedent.all.Sous_Arbre_Gauche then
                         noeud_precedent.Sous_Arbre_Gauche := noeud.all.Sous_Arbre_Gauche;
@@ -149,8 +168,8 @@ package body Arbre_Bin is
                   --cas où il n'y a qu'un sous arbre gauche XOR droit
                   Put_Line("Suppression à gauche OU à droite");
                   if noeud.all.Sous_Arbre_Gauche /= null then
-                     if noeud = Abr then
-                        Abr := Abr.Sous_Arbre_Gauche;
+                     if noeud = arbre then
+                        arbre := arbre.Sous_Arbre_Gauche;
                      else
                         if noeud = noeud_precedent.all.Sous_Arbre_Gauche then
                            noeud_precedent.Sous_Arbre_Gauche := noeud.all.Sous_Arbre_Gauche;
@@ -159,8 +178,8 @@ package body Arbre_Bin is
                         end if;
                      end if;
                   else
-                     if noeud = Abr then
-                        Abr := Abr.Sous_Arbre_Droit;
+                     if noeud = arbre then
+                        arbre := arbre.Sous_Arbre_Droit;
                      else
                         if noeud = noeud_precedent.all.Sous_Arbre_Gauche then
                            noeud_precedent.Sous_Arbre_Gauche := noeud.all.Sous_Arbre_Droit;
@@ -175,14 +194,14 @@ package body Arbre_Bin is
       end if;
    end supprimer;
 
-   -- Afficher un AB Abr
-   procedure afficher (Abr : in T_Arb) is
+   -- Afficher un AB arbrere
+   procedure afficher (arbre : in T_Arb) is
    begin
       if Est_Vide(abr) then
          null;
       else
          Afficher(abr.all.Sous_Arbre_Gauche);
-         AfficherDonnee(Abr.all.donnee);
+         AfficherDonnee(arbre.all.donnee);
          Afficher(abr.all.Sous_Arbre_Droit);
       end if;
    end afficher;
