@@ -11,4 +11,15 @@
       <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\Arbre_Bin.adb</vfs_file>
     </file_marker>
   </Project>
+  <Project >
+    <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\Arbre_Bin.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\Arbre_Bin.adb</vfs_file>
+    </file_marker>
+  </Project>
 </Locations>
