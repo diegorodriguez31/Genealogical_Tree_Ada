@@ -1,0 +1,80 @@
+#Système de gestion d'arbres généalogiques
+
+
+Indiquer un numéro de génération des ancêtres par rapport à un individu.
+Numéro de génération => calculer distance entre individu de référence et ancêtre considéré
+L'individu est de génération 0 puis ses parents 1 etc..
+
+#Chaque noeud :
+- id unique de l'individu
+- informations sur l'individu => nom, prénom, sexe, date de anissance, decès ...
+- Racine de l'arbre =  noeud correspondant à un individu
+- Depuis chaque noeud, on a accès à père et mère
+- Arbre partiellement rempli
+- C'est un arbre => deux noeuds ne peuvent pas avoir un ancêtre commun
+
+Un utilisateur doit pouvoir manipuler des arbres généalogiques (définition, manipulation, affichage) :
+- Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
+- Ajouter un parent à un noeud donné
+- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
+- Obtenir l'ensemble des ancêtres situés à une certaine génération d'un noeud donné
+- Afficher l'arbre à partir d'un noeud donné
+- Supprimer, pour un arbre, un noeud et ses ancêtres
+- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+- Obtenir l'ensemble des individus dont les deux parents sont connus
+- Obtenir l'ensemble des individus dont les deux parents sont inconnus
+- Obtenir la succession d'ancêtres d'une génération donnée pour un noeud donné
+- Identifier les descendants d'une génération donnée pour un noeud donné
+- Obtenir la succession de descendants d'une génération donnée pour un noeud donné
+
+En inventer d'autres...
+
+#OBJECTIF :
+
+- Manipuler un arbre généalogique.
+- Module Arbre_Genealog qui s'appuie sur un module générique qui spécifie et implante une structure de données de type Arbre_Bin
+- Tester le programme (pragma...)
+- Proposer un menu de commandes qui donne accès aux fonctionnalités
+
+#Ne pas oublier de faire :
+- Ecriture des spécifications pour tous les programmes et sous-programmes
+- Conception en utilisant la méthode des raffinages
+- Justification des choix des types de données manipulés
+- Conception de modules : encapsulatoin, généricité, TAD
+- Définition de tests et le processus de test mis en place
+
+Répertoire "livrables" qui contient que les livrables explicitement demandés
+Répertoire "src" qui contient les sources de l'appli
+Répertoire "doc" pour le rapport
+
+#LIVRABLES :
+- Spécification des modules en Ada (.ads) => définitino des principaux types dans la partie privée
+- Programmes de test (test_*.adb)
+- Une archive avec le code source final (source.tar)
+- Rapport.pdf avec => résumé qui décrit l'objectif et le contenu du rapport (10 lignes) => intro qui présente le pb traité et le plan du doc => présentation des principaux types de données et justification des choix de ces structures
+=> présentation des principaux algo => présentation des raffinages ayant conduits aux algo principaux. (principales étapes des raffinages) => architecture de l'appli en modules => présentation des choix réalisés
+=> démarche adoptée pour tester le programme => difficultés rencontrées et solutions adoptées et justificationd es choix (surtout si plusieurs soluces possibles) => bilan technique donnant un état d'avancement du projet et perspectives
+d'amélioration/ évolution => bilan personnel (intérêt, temps passé, temps passé à la conception, temps à l'implantation, temps à la mise au point, temps au rapport, enseignements tirés de ce projet, etc..
+=> manuel utilisateur (manuel.pdf) qui décrit comment utiliser les programmes développés et qui est illustré avec des copies d'écran
+
+— le respect du cahier des charges,
+— la qualité des raffinages,
+— la facilité à comprendre la solution proposée,
+— la pertinence des modules définis,
+— la pertinence des sous-programmes définis,
+— la qualité des sous-programmes : ils ne doivent pas être trop longs, ne pas faire trop
+de choses, ne pas avoir trop de structures de contrôle imbriquées. Dans ces cas, il
+faut envisager de découper le sous-programme !
+— la bonne utilisation de la programmation par contrat (en particulier les préconditions
+et les invariants de type) et de la programmation défensive,
+— la pertinence des tests réalisés sur les sous-programmes
+— la pertinence des types utilisateurs définis,
+— l’absence de code redondant,
+— le choix des identifiants,
+— les commentaires issus des raffinages,
+— la bonne utilisation des commentaires,
+— le respect de la solution algorithmique (les raffinages) dans le programme,
+— la présentation du code (le programme doit être facile à lire et à comprendre),
+— l’utilisation des structures de contrôle adéquates,
+— la validité du programme,
+— la robustesse du programme,
