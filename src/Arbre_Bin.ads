@@ -96,4 +96,4 @@ private
       Sous_Arbre_Droit : T_Arbre_Bin;
    end record;
 
-end Arbre_Bin;
+end arbre_Bin;
