@@ -1,14 +1,16 @@
 with Ada.Text_IO; use ada.Text_IO;
 
 generic
-   type T_Id is private;
-   type T_Donnee is private;
+   --  type T_Id is private;
+   --  type T_Donnee is private;
+   type T_Element is private;
+   with function estEquivalent(element1 : in T_Element; element2 : in T_Element) return Boolean;
 package Arbre_Bin is
 
-   type T_Element is record
-      id : T_Id;
-      donnee : T_Donnee;
-   end record;
+   --  type T_Element is record
+   --     id : T_Id;
+   --     donnee : T_Donnee;
+   --  end record;
 
    type T_Arbre_Bin is private;
 
@@ -67,7 +69,7 @@ package Arbre_Bin is
    -- Post-conditions : L'arbre est inchangé
    -- Retourne : l'element recherché ou l'element précedent selon le flag retourner_precedent. null si l'element n'as pas été trouvé.
    -- Exceptions : Néant.
-   function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Element;
+   function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Arbre_Bin;
 
    -- Semantique :  Modifier l'element dans l'arbre
    -- Paramètres :
@@ -93,14 +95,14 @@ package Arbre_Bin is
    --   valeur_absente si la donnée src_donnee est absente
    procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element);
 
-   -- Semantique :  Afficher un AB Abr
+   -- Semantique :  Afficher l'arbre
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire à afficher
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est affiché
    -- Exceptions : Néant
    generic
-      with procedure afficher_element(Element : in T_Element);
+      with procedure afficherElement(Element : in T_Element);
    procedure afficher (arbre : in T_Arbre_Bin);
 
 private
