@@ -97,26 +97,35 @@ package Arbre_Genealog is
 
    -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont inconnus
    -- Paramètres :
-   --    Abr : IN T_Arbre_Gen -- Arbre donné
+   --    arbre : IN T_Arbre_Gen -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus qui n'ont pas de parent connu est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeAucunParent(Abr : in T_Arbre_Gen);
+   procedure listeAucunParent(arbre : in T_Arbre_Gen);
 
    -- Sémantique : Obtenir l'ensemble des individus qui n'ont qu'un parent connu
    -- Paramètres :
-   --    Abr : IN T_Arbre_Gen -- Arbre donné
+   --    arbre : IN T_Arbre_Gen -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus qui n'ont qu'un parent connu est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeUnSeulParent(Abr : in T_Arbre_Gen);
+   procedure listeUnSeulParent(arbre : in T_Arbre_Gen);
 
    -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont connus
    -- Paramètres :
-   --    Abr : IN T_Arbre_Gen -- Arbre donné
+   --    arbre : IN T_Arbre_Gen -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus dont les deux parents sont connus est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeDeuxParents(Abr : in T_Arbre_Gen);
+   procedure listeDeuxParents(arbre : in T_Arbre_Gen);
+
+   -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont connus
+   -- Paramètres :
+   --    arbre : IN T_Arbre_Gen, -- Arbre entier
+   --    compteur : IN Integer   -- Compteur pour l'affichage en tabulations
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'arbre généalogique est affiché
+   -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
+  procedure afficher(arbre : in T_ArbreGenealog;  compteur : Integer);
 
 end Arbre_Genealog;
