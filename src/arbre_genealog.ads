@@ -53,7 +53,7 @@ package Arbre_Genealog is
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
    procedure ensembleAncetres(Id : in T_Id ; Generation : in Integer);
 
-   -- Identifier les descendants d'une génération donnée pour un noeud donné
+   -- Sémantique : Identifier les descendants d'une génération donnée pour un noeud donné
    -- Paramètres :
    --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
    --    Generation : IN Integer -- Génération par rapport au noeud donné
@@ -64,7 +64,7 @@ package Arbre_Genealog is
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
    procedure identifierDescendants(Id : in T_Id ; Generation : in Integer);
 
-  -- Obtenir la succession de descendants d'une génération donnée pour un noeud donné
+   -- Sémantique : Obtenir la succession de descendants d'une génération donnée pour un noeud donné
    -- Paramètres :
    --    Id : IN OUT T_Id, -- Identifiant du noeud de l'individu donné
    --    Generation : IN Integer -- Génération par rapport au noeud donné
@@ -75,7 +75,7 @@ package Arbre_Genealog is
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
    procedure ensembleDescendants(Id : in T_Id ; Generation : in Integer);
 
-   -- Afficher l'arbre à partir d'un noeud donné
+   -- Sémantique : Afficher l'arbre à partir d'un noeud donné
    -- Paramètres :
    --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
    -- Pré-conditions : Néant
@@ -85,7 +85,7 @@ package Arbre_Genealog is
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
    procedure afficherArbreGen(Id : in T_Id);
 
-   -- Supprimer, pour un arbre, un noeud et ses ancêtres
+   -- Sémantique : Supprimer, pour un arbre, un noeud et ses ancêtres
    -- Paramètres :
    --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
    -- Pré-conditions : Néant
@@ -95,9 +95,15 @@ package Arbre_Genealog is
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
    procedure supprimerNoeudEtAncetres(Id : in T_Id);
 
+   -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont inconnus
+   -- Paramètres :
+   --    Abr : IN T_Arbre_Gen -- Arbre donné
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'ensemble des individus qui n'ont pas de parent connu est affiché
+   -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
+   procedure listeAucunParent(Abr : in T_Arbre_Gen);
 
-
-   -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+   -- Sémantique : Obtenir l'ensemble des individus qui n'ont qu'un parent connu
    -- Paramètres :
    --    Abr : IN T_Arbre_Gen -- Arbre donné
    -- Pré-conditions : Néant
@@ -105,20 +111,12 @@ package Arbre_Genealog is
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
    procedure listeUnSeulParent(Abr : in T_Arbre_Gen);
 
-   -- Obtenir l'ensemble des individus dont les deux parents sont connus
+   -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont connus
    -- Paramètres :
    --    Abr : IN T_Arbre_Gen -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus dont les deux parents sont connus est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
    procedure listeDeuxParents(Abr : in T_Arbre_Gen);
-
-   -- Obtenir l'ensemble des individus dont les deux parents sont inconnus
-   -- Paramètres :
-   --    Abr : IN T_Arbre_Gen -- Arbre donné
-   -- Pré-conditions : Néant
-   -- Post-conditions : L'ensemble des individus qui n'ont pas de parent connu est affiché
-   -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeAucunParent(Abr : in T_Arbre_Gen);
 
 end Arbre_Genealog;
