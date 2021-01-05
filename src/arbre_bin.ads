@@ -3,8 +3,6 @@ with Ada.Text_IO; use ada.Text_IO;
 generic
    type T_Id is private;
    type T_Donnee is private;
-   with function inferieur_donnee(Donnee_1 : in T_Element; Donnee_2 : in T_Element) return Boolean;
-   with function superieur_donnee(Donnee_1 : in T_Element; Donnee_2 : in T_Element) return Boolean;
 package Arbre_Bin is
 
    type T_Element is record
@@ -18,6 +16,7 @@ package Arbre_Bin is
    element_absent : exception;
    element_existant : exception;
    emplacement_invalide : exception;
+   identifiant_incoherent : exception;
 
    -- Semantique : Initialiser l'arbre binaire
    -- Paramètres : Néant
@@ -60,30 +59,48 @@ package Arbre_Bin is
    procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean);
 
    -- Semantique :  Recherche dans l'element dans l'arbre
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
+   --   element : IN T_Element, l'element à rechercher
+   --   retourner_precedent : in Boolean, vrai s'il faut retourner l'element précédent, faux s'il faut retourner l'element
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est inchangé
-   -- Retourne : Un bouléen indiquant si la donnée est présente dans l'arbre
-   -- Exceptions : Néant
-   function est_present (arbre : T_Arbre_Bin; element : in T_Element) return Boolean;
+   -- Retourne : l'element recherché ou l'element précedent selon le flag retourner_precedent. null si l'element n'as pas été trouvé.
+   -- Exceptions : Néant.
+   function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Element;
 
-   -- Semantique :  Modifier la donnée dans l’AB Abr.
-   -- Pré-conditions : l'arbre n'est pas vide et la donnée src_donnee est présente dans l'arbre
-   -- Post-conditions : La donnée src donnée à été remplacée par la donnée tar_donnée
-   -- Exceptions : null_exception si l'arbe est vide, valeur_absente si la donnée src_donnee est absente
-   procedure modifier (arbre : in out T_Arbre_Bin ; src_donnee : in T_Element; tar_donnee : in T_Element);
+   -- Semantique :  Modifier l'element dans l'arbre
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut modifier un element
+   --   src_element : IN T_Element, l'element à modifier
+   --   tar_element : IN T_Element, la nouvelle valeur de l'élement
+   -- Pré-conditions : Néant
+   -- Post-conditions : l'element src donnée à été remplacée par la donnée tar_donnée
+   -- Exceptions :
+   --   null_exception si l'arbe est vide
+   --   valeur_absente si la donnée src_donnee est absente
+   --   identifiant_incoherent si l'identifiant de src_element ne corresponds pas à celui de tar_element
+   procedure modifier (arbre : in out T_Arbre_Bin ; src_element : in T_Element; tar_element : in T_Element);
 
    -- Semantique :  Supprimer la donnée dans l’AB Abr.
-   -- Pré-conditions : l'arbre n'est pas vide et la donnée donnee est présente dans l'arbre
-   -- Post-conditions : Il y a une occurence de moins de la donnee à supprimer dans l'arbre
-   -- Exceptions : null_exception si l'arbe est vide, valeur_absente si la donnée src_donnee est absente
-   procedure supprimer (arbre : in out T_Arbre_Bin; donnee : in T_Element);
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut supprimer un element
+   --   element : IN T_Element, l'element à supprimer
+   -- Pré-conditions : Néant
+   -- Post-conditions : l'élément à été supprimé de l'arbre
+   -- Exceptions :
+   --   null_exception si l'arbe est vide
+   --   valeur_absente si la donnée src_donnee est absente
+   procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element);
 
    -- Semantique :  Afficher un AB Abr
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire à afficher
    -- Pré-conditions : Néant
-   -- Post-conditions : L'arbre est affiché selon le mode d'affichage GRD
+   -- Post-conditions : L'arbre est affiché
    -- Exceptions : Néant
    generic
-      with procedure afficher_donnee(Donnee : in T_Element);
+      with procedure afficher_element(Element : in T_Element);
    procedure afficher (arbre : in T_Arbre_Bin);
 
 private
@@ -91,9 +108,9 @@ private
    type T_Arbre_Bin is access T_Noeud;
 
    type T_Noeud is record
-      Element : T_Element;
-      Sous_Arbre_Gauche : T_Arbre_Bin;
-      Sous_Arbre_Droit : T_Arbre_Bin;
+      element : T_Element;
+      sous_arbre_gauche : T_Arbre_Bin;
+      sous_arbre_droit : T_Arbre_Bin;
    end record;
 
 end arbre_Bin;
