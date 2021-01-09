@@ -128,4 +128,8 @@ package Arbre_Genealog is
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
   procedure afficher(arbre : in T_ArbreGenealog;  compteur : Integer);
 
+
+private
+  type T_Arbre_Gen is access T_Arb_Bin
+  
 end Arbre_Genealog;
