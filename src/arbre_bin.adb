@@ -1,6 +1,6 @@
 package body Arbre_Bin is
 
-   -- Initialiser l'arbre binaire
+   -- Initialise l'arbre binaire
    function initialiser return T_Arbre_Bin is
       arbre  : T_Arbre_Bin;
    begin
@@ -8,13 +8,13 @@ package body Arbre_Bin is
       return arbre;
    end initialiser;
 
-   -- Determiner si l'arbre est vide
+   -- Determine si l'arbre est vide
    function estVide (arbre : T_Arbre_Bin) return Boolean is
    begin
       return arbre = null;
    end estVide;
 
-   -- Obtenir le nombre d’éléments de l'arbre.
+   -- Obtient le nombre d’éléments de l'arbre.
    function Taille (arbre : in T_Arbre_Bin) return Integer is
    begin
       if not estVide(arbre) then
@@ -25,7 +25,7 @@ package body Arbre_Bin is
    end Taille;
 
 
-   -- Insérer l'element avec l'identifiant et la donnée dans l'arbre
+   -- Insére l'element avec l'identifiant et la donnée dans l'arbre
    procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean) is
       element_prec : T_Arbre_Bin;
    begin
@@ -84,7 +84,7 @@ package body Arbre_Bin is
       return noeud;
    end recherche;
 
-   -- Modifier l'element dans l'arbre
+   -- Modifie l'element dans l'arbre
    procedure modifier (arbre : in out T_Arbre_Bin ; src_element : in T_Element; tar_element : in T_Element) is
       noeud : T_Arbre_Bin;
    begin
@@ -104,7 +104,7 @@ package body Arbre_Bin is
       end if;
       end modifier;
 
-      -- Supprimer la donnée dans l’AB Abr.
+      -- Supprime la donnée dans l’AB Abr.
       procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element) is
          noeud : T_Arbre_Bin;
       begin
@@ -125,7 +125,7 @@ package body Arbre_Bin is
          end if;
       end supprimer;
 
-      -- Afficher l'arbre
+      -- Affiche l'arbre
       procedure afficher (arbre : in T_Arbre_Bin) is
       begin
          if estVide(arbre) then
@@ -136,5 +136,17 @@ package body Arbre_Bin is
             Afficher(arbre.all.Sous_Arbre_Droit);
          end if;
       end afficher;
+
+      -- Renvoie le sous-arbre gauche
+      function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+      begin
+         return arbre.all.sous_arbre_gauche;
+      end getSousArbreGauche;
+
+      -- Renvoie le sous-arbre droit
+      function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+      begin
+         return arbre.all.sous_arbre_droit;
+      end getSousArbreDroit;
 
    end Arbre_Bin;

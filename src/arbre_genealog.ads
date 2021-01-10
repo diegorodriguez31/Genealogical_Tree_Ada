@@ -1,5 +1,29 @@
+with Arbre_Bin;
+with P_individu;
 
+generic
+     type T_Identifiant is private
+     type T_Donnee is private;
 package Arbre_Genealog is
+
+ -- type T_Individu is private;
+-- type T_Arbre_Genealog is access T_Individu;
+
+function areEquals(arbre1, arbre2 : in T_Arbre_Genealog) return Boolean;
+
+-- Instanciation d'un Arbre_Bin avec les données d'un arbre généalogique
+package P_Arbre_Genealog is new Arbre_Bin(T_Individu,...);
+use P_Arbre_Genealog;
+
+ -- Getters / Setters
+ procedure set_id(arbre : in out T_Arbre_Genealog ; id : in Integer);
+ function get_id(arbre : in T_Arbre_Genealog) return Integer;
+
+ procedure set_generation(arbre : in out T_Arbre_Genealog ; generation : in Integer);
+ function get_generation(arbre : in T_Arbre_Genealog) return Integer;
+
+ procedure set_informations(arbre : in out T_Arbre_Genealog ; informations : in T_Individu);
+ function get_informations(arbre : in T_Arbre_Genealog) return T_Individu;
 
  -- Semantique : Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
    -- Paramètres : Néant
@@ -131,5 +155,5 @@ package Arbre_Genealog is
 
 private
   type T_Arbre_Gen is access T_Arb_Bin
-  
+
 end Arbre_Genealog;

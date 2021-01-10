@@ -2,15 +2,34 @@ with arbre_bin;
 
 package body arbre_genealog is
 
+   package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu);
+   use arbre_genealogique;
+
    -- Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
    function creer(Id : in T_Id ; Donnee : in T_Donnee) return T_Arbre_Gen is
+      arbre : T_Arbre_Bin;
    begin
+      arbre := arbre_genealogique.creer(individu);
+      creerIndividu(id, donnee)
+      return arbre;
    end creer;
 
    -- Ajouter un parent à un noeud donné
    procedure ajouterParent(Id : in T_Id ; Parent : in T_Arbre_Gen ; PereOuMere : in Boolean) is
       begin
    end ajouterParent;
+
+   -- Ajoute un père à un noeud donné
+   procedure ajouterPere(arbre : T_Arbre_Bin, pere : T_Individu) is
+   begin
+      arbre_genealogique.inserer(arbre, null, pere, true);
+   end ajouterPere;
+
+   -- Ajoute un mère à un noeud donné
+   procedure ajouterMere(arbre : T_Arbre_Bin, mere : T_Individu) is
+   begin
+      arbre_genealogique.inserer(arbre, null, mere, true);
+   end ajouterMere;
 
 
    -- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
@@ -93,5 +112,20 @@ function nombreAncetres(Id : in T_Id) return Integer is
          end if;
       end if;
    end afficher;
+
+   function creerIndividu(id : in T_Identifiant, donnees : in T_Donnees) return T_Individu is
+      individu : T_Individu;
+   begin
+      individu.id := id;
+      return individu;
+   end creerIndividu;
+
+   function ancetrePaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
+   begin
+   end ancetrePaternelOrdreN;
+
+   function ancetreMaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
+   begin
+   end ancetreMaternelOrdreN;
 
 end Arbre_Genealog;

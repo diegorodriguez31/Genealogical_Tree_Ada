@@ -1,8 +1,6 @@
 with Ada.Text_IO; use ada.Text_IO;
 
 generic
-   --  type T_Id is private;
-   --  type T_Donnee is private;
    type T_Element is private;
    with function estEquivalent(element1 : in T_Element; element2 : in T_Element) return Boolean;
 package Arbre_Bin is
@@ -19,6 +17,7 @@ package Arbre_Bin is
    element_existant : exception;
    emplacement_invalide : exception;
    identifiant_incoherent : exception;
+   est_feuille : exception;
 
    -- Semantique : Initialiser l'arbre binaire
    -- Paramètres : Néant
@@ -104,6 +103,27 @@ package Arbre_Bin is
    generic
       with procedure afficherElement(Element : in T_Element);
    procedure afficher (arbre : in T_Arbre_Bin);
+
+   -- Semantique :  Renvoie le sous-arbre gauche de l'arbre donné en entrée
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
+   -- Pré-conditions : Néant
+   -- Post-conditions : Le sous-arbre gauche est renvoyé
+   -- Retourne : Le sous-arbre gauche de l'arbre courant
+   -- Exceptions :
+   --    est_feuille si l'arbre donné est une feuille
+   function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+
+   -- Semantique :  Renvoie le sous-arbre droit de l'arbre donné en entrée
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
+   -- Pré-conditions : Néant
+   -- Post-conditions : Le sous-arbre droit est renvoyé
+   -- Retourne : Le sous-arbre droit de l'arbre courant
+   -- Exceptions :
+   --    est_feuille si l'arbre donné est une feuille
+   function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+
 
 private
    type T_Noeud;
