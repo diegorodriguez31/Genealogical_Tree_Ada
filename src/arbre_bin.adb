@@ -6,6 +6,14 @@ package body Arbre_Bin is
       arbre := null;
    end initialiser;
 
+-- Methode de thomas ?
+  -- function creerArbre(Donnee : in T_Element) return T_ArbreBin is
+    --  arbre  : T_ArbreBin;
+   --begin
+     -- arbre :=  new T_Noeud'(Donnee, null, null);
+     -- return arbre;
+   --end creerArbre;
+
    -- Determine si l'arbre est vide
    function estVide (arbre : in T_Arbre_Bin) return Boolean is
    begin
@@ -23,7 +31,7 @@ package body Arbre_Bin is
    end Taille;
 
 
-   -- Insére l'element avec l'identifiant et la donnée dans l'arbre
+   -- Insère l'element avec l'identifiant et la donnée dans l'arbre
    procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean) is
       element_prec : T_Arbre_Bin;
    begin
@@ -54,6 +62,24 @@ package body Arbre_Bin is
          end if;
       end if;
    end inserer;
+
+   -- Insère l'element à droite de l'arbre courant
+    procedure insererSousArbreDroit(arbre : in out T_Arbre_Bin ; element_precedent : in T_Element : nouvel_element : in T_Element) is
+    begin
+      inserer(arbre, element_precedent, nouvel_element, true);
+    end insererFilsDroit;
+
+   -- Insère l'element à gauche de l'arbre courant
+   procedure insererSousArbreGauche(arbre : in out T_Arbre_Bin ; element_precedent : in T_Element : nouvel_element : in T_Element) is
+   begin
+      inserer(arbre, element_precedent, nouvel_element, false);
+   end insererFilsGauche;
+
+   -- Semantique :  Renvoie l'élément de l'arbre courant
+   function getDonnee(F_Arbre : T_Arbre_Bin) return T_Element is
+   begin
+      return F_Arbre.all.Element;
+   end getDonnee;
 
    -- Recherche dans l'element dans l'arbre
    function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Arbre_Bin is
@@ -136,15 +162,15 @@ package body Arbre_Bin is
       end afficher;
 
       -- Renvoie le sous-arbre gauche
-      function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+      function getSousArbreGauche(F_Arbre : in T_Arbre_Bin) return T_Arb_Bin is
       begin
-         return arbre.all.sous_arbre_gauche;
+         return F_arbre.all.Sous_Arbre_Gauche;
       end getSousArbreGauche;
 
       -- Renvoie le sous-arbre droit
-      function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+      function getSousArbreDroit(F_Arbre : in T_Arbre_Bin) return T_Arb_Bin is
       begin
-         return arbre.all.sous_arbre_droit;
+         return F_arbre.all.Sous_Arbre_Droit;
       end getSousArbreDroit;
 
    end Arbre_Bin;

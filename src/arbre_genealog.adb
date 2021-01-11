@@ -1,5 +1,3 @@
-with arbre_bin;
-
 package body arbre_genealog is
 
    package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu);
@@ -14,75 +12,75 @@ package body arbre_genealog is
    end creer;
 
    -- Ajouter un parent à un noeud donné
-   procedure ajouterParent(Id : in T_Id ; Parent : in T_Arbre_Gen ; PereOuMere : in Boolean) is
+   procedure ajouterParent(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Individu ; F_PereOuMere : in Boolean) is
       begin
    end ajouterParent;
 
    -- Ajoute un père à un noeud donné
-   procedure ajouterPere(arbre : T_Arbre_Bin, pere : T_Individu) is
+   procedure ajouterPere(F_Arbre : in out T_Arbre_Bin ; F_Pere : in T_Individu) is
    begin
-      arbre_genealogique.inserer(arbre, null, pere, true);
+      arbre_genealogique.insererSousArbreGauche(F_Arbre, F_Pere);
    end ajouterPere;
 
    -- Ajoute un mère à un noeud donné
-   procedure ajouterMere(arbre : T_Arbre_Bin, mere : T_Individu) is
+   procedure ajouterMere(F_Arbre : in out T_Arbre_Bin ; F_Mere : in T_Individu) is
    begin
-      arbre_genealogique.inserer(arbre, null, mere, true);
+      arbre_genealogique.insererSousArbreDroit(F_Arbre, F_Mere);
    end ajouterMere;
 
 
    -- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
-function nombreAncetres(Id : in T_Id) return Integer is
+function nombreAncetres(F_Arbre : in T_Arb_Bin) return Integer is
       begin
    end nombreAncetres;
 
    --Identifier les ancêtres d'une génération donnée pour un noeud donné
-   procedure identifierAncetres(Id : in T_Id ; Generation : in Integer) is
+   procedure identifierAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
          begin
    end identifierAncetres;
 
    -- Obtenir l'ensemble des ancêtres situés à une certaine génération d'un noeud donné
-   procedure ensembleAncetres(Id : in T_Id ; Generation : in Integer) is
+   procedure ensembleAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
          begin
    end ensembleAncetres;
 
    -- Identifier les descendants d'une génération donnée pour un noeud donné
-   procedure identifierDescendants(Id : in T_Id ; Generation : in Integer) is
+   procedure identifierDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
          begin
    end identifierDescendants;
 
    -- Obtenir la succession de descendants d'une génération donnée pour un noeud donné
-   procedure ensembleDescendants(Id : in T_Id ; Generation : in Integer) is
+   procedure ensembleDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
          begin
    end ensembleDescendants;
 
    -- Afficher l'arbre à partir d'un noeud donné
-   procedure afficherArbreGen(Id : in T_Id) is
+   procedure afficherArbreGen(F_Arbre : in T_Arb_Bin) is
          begin
    end afficherArbreGen;
 
    -- Supprimer, pour un arbre, un noeud et ses ancêtres
-   procedure supprimerNoeudEtAncetres(Id : in T_Id) is
+   procedure supprimerNoeudEtAncetres(F_Arbre : in out T_Arb_Bin) is
       begin
    end supprimerNoeudEtAncetres;
 
+   -- Obtenir l'ensemble des individus dont les deux parents sont inconnus
+   procedure listeAucunParent(F_Arbre_Entier : in T_Arbre_Bin) is
+         begin
+   end listeAucunParent;
+
    -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
-   procedure listeUnSeulParent(arbre : in T_Arbre_Gen) is
+   procedure listeUnSeulParent(F_Arbre_Entier : in T_Arbre_Bin) is
          begin
    end listeUnSeulParent;
 
    -- Obtenir l'ensemble des individus dont les deux parents sont connus
-   procedure listeDeuxParents(arbre : in T_Arbre_Gen) is
+   procedure listeDeuxParents(F_Arbre_Entier : in T_Arbre_Bin) is
          begin
    end listeDeuxParents;
 
-   -- Obtenir l'ensemble des individus dont les deux parents sont inconnus
-   procedure listeAucunParent(arbre : in T_Arbre_Gen) is
-         begin
-   end listeAucunParent;
-
    -- Affiche l'arbre généalogique
-   procedure afficher(arbre : in T_ArbreGen;  compteur : Integer) is
+   procedure afficher(F_Arbre_Entier : in T_Arbre_Bin;  F_Compteur : Integer) is
    begin
       if estVide(arbre) then
          null;
@@ -93,21 +91,21 @@ function nombreAncetres(Id : in T_Id) return Integer is
             null;
          else
             New_Line;
-            for j in 0..compteur loop
+            for j in 0..F_Compteur loop
                Put("    ");
             end loop;
             Put("-- pere : ");
-            afficher(arbre.all.Sous_Arbre_Gauche, compteur+1);
+            afficher(arbre.all.Sous_Arbre_Gauche, F_Compteur+1);
          end if;
          if estVide(arbre.all.Sous_Arbre_Droit) then
             null;
          else
             New_Line;
-            for j in 0..compteur loop
+            for j in 0..F_Compteur loop
                Put("    ");
             end loop;
             Put("-- mere : ");
-            afficher(arbre.all.Sous_Arbre_Droit, compteur+1);
+            afficher(arbre.all.Sous_Arbre_Droit, F_Compteur+1);
          end if;
       end if;
    end afficher;
@@ -126,5 +124,18 @@ function nombreAncetres(Id : in T_Id) return Integer is
       return get_id(F_Arbre1) = get_id(F_Arbre2);
    end egaux;
 
+
+
+   procedure afficherUnEntier(F_individu : in indiv.T_Individu) is
+   begin
+      Put(Integer'Image(F_individu.id));
+   end afficherUnEntier;
+   procedure afficherIndividu is new afficherIndividuId(afficherId => afficherUnEntier);
+
+   
+   --function ancetrePereOrdreN(F_arbre : T_ArbreBin; N : Integer) return T_Individu is
+   --begin
+      -- à écrire
+   --end;
 
 end Arbre_Genealog;

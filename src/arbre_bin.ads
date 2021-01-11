@@ -5,11 +5,6 @@ generic
    with function estEquivalent(element1 : in T_Element; element2 : in T_Element) return Boolean;
 package Arbre_Bin is
 
-   --  type T_Element is record
-   --     id : T_Id;
-   --     donnee : T_Donnee;
-   --  end record;
-
    type T_Arbre_Bin is private;
 
    arbre_null : exception;
@@ -32,7 +27,7 @@ package Arbre_Bin is
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dont le catactère 'vide' doit être determinée
    -- Pré-conditionsns : Néant
    -- Post-conditions : L'arbre est inchangé
-   -- Retourne : Un bouléen indiquant si l'arbre est vide
+   -- Retourne : Boolean Un bouléen indiquant si l'arbre est vide
    -- Exceptions : Néant
    function estVide (arbre : in T_Arbre_Bin) return Boolean;
 
@@ -41,7 +36,7 @@ package Arbre_Bin is
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dont la taille doit être determinée
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est inchangé
-   -- Retourne : le nombre d'elements dans l'arbre donné
+   -- Retourne : Integer le nombre d'elements dans l'arbre donné
    -- Exceptions : Néant
    function taille (arbre : in T_Arbre_Bin) return Integer;
 
@@ -59,6 +54,41 @@ package Arbre_Bin is
    --   emplacement invalide, s'il existe déjà un element là où nouvel_element doit être inséré
    procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean);
 
+   -- Semantique :  Insère l'element à droite de l'arbre courant
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut inserer
+   --   element_precedent : IN T_Element, l'element après lequel il faut insérer
+   --   nouvel_element : in T_Element, l'element à insérer
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'arbre contient le nouvel élement à droite de l'arbre courant si les informations entrées sont cohérentes avec l'arbre
+   -- Exceptions :
+   --   element_absent, s'il n'existe pas d'element de même identifiant que element precedent
+   --   element_existant, s'il existe déjà un élément de même identifiant que nouvel_element
+   --   emplacement invalide, s'il existe déjà un element là où nouvel_element doit être inséré
+   procedure insererSousArbreDroit(arbre : in out T_Arbre_Bin ; element_precedent : in T_Element : nouvel_element : in T_Element);
+
+   -- Semantique :  Insère l'element à gauche de l'arbre courant
+   -- Paramètres :
+   --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut inserer
+   --   element_precedent : IN T_Element, l'element après lequel il faut insérer
+   --   nouvel_element : in T_Element, l'element à insérer
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'arbre contient le nouvel élement à gauche de l'arbre courant si les informations entrées sont cohérentes avec l'arbre
+   -- Exceptions :
+   --   element_absent, s'il n'existe pas d'element de même identifiant que element precedent
+   --   element_existant, s'il existe déjà un élément de même identifiant que nouvel_element
+   --   emplacement invalide, s'il existe déjà un element là où nouvel_element doit être inséré
+   procedure insererSousArbreGauche(arbre : in out T_Arbre_Bin ; element_precedent : in T_Element : nouvel_element : in T_Element);
+
+   -- Semantique :  Renvoie l'élément de l'arbre courant
+   -- Paramètres :
+   --   F_Arbre : IN T_Arbre_Bin, l'arbre binaire courant
+   -- Pré-conditions : Néant
+   -- Post-conditions : La donnée de l'arbre est renvoyée
+   -- Retourne : T_Element la donnée de l'arbre courant ou null si l'element n'as pas été trouvé.
+   -- Exceptions : Néant.
+   function getDonnee(F_Arbre : T_Arbre_Bin) return T_Element;
+
    -- Semantique :  Recherche dans l'element dans l'arbre
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
@@ -66,7 +96,7 @@ package Arbre_Bin is
    --   retourner_precedent : in Boolean, vrai s'il faut retourner l'element précédent, faux s'il faut retourner l'element
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est inchangé
-   -- Retourne : l'element recherché ou l'element précedent selon le flag retourner_precedent. null si l'element n'as pas été trouvé.
+   -- Retourne : T_Arbre_Bin l'arbre binaire recherché ou l'element précedent selon le flag retourner_precedent. null si l'element n'as pas été trouvé.
    -- Exceptions : Néant.
    function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Arbre_Bin;
 
@@ -109,30 +139,29 @@ package Arbre_Bin is
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
    -- Pré-conditions : Néant
    -- Post-conditions : Le sous-arbre gauche est renvoyé
-   -- Retourne : Le sous-arbre gauche de l'arbre courant
+   -- Retourne : T_Arbre_Bin Le sous-arbre gauche de l'arbre courant
    -- Exceptions :
    --    est_feuille si l'arbre donné est une feuille
-   function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arb_Bin;
+   function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arbre_Bin;
 
    -- Semantique :  Renvoie le sous-arbre droit de l'arbre donné en entrée
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut effectuer la recherche
    -- Pré-conditions : Néant
    -- Post-conditions : Le sous-arbre droit est renvoyé
-   -- Retourne : Le sous-arbre droit de l'arbre courant
+   -- Retourne : T_Arbre_Bin Le sous-arbre droit de l'arbre courant
    -- Exceptions :
    --    est_feuille si l'arbre donné est une feuille
-   function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arb_Bin;
-
+   function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arbre_Bin;
 
 private
    type T_Noeud;
    type T_Arbre_Bin is access T_Noeud;
 
    type T_Noeud is record
-      element : T_Element;
-      sous_arbre_gauche : T_Arbre_Bin;
-      sous_arbre_droit : T_Arbre_Bin;
+      Element : T_Element;
+      Sous_Arbre_Gauche : T_Arbre_Bin;
+      Sous_Arbre_Droit : T_Arbre_Bin;
    end record;
 
 end arbre_Bin;

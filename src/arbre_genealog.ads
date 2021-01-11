@@ -1,5 +1,5 @@
 with Arbre_Bin;
-with P_individu;
+with individu;
 
 generic
      type T_Identifiant is private
@@ -14,6 +14,14 @@ package Arbre_Genealog is
  -- type T_Individu is private;
 -- type T_Arbre_Genealog is access T_Individu;
 
+
+-- Instanciation d'un individu avec l'identifiant de type Integer
+package individu_Integer is new individu(T_Identifiant => Integer);
+use individu_Integer;
+
+-- Instanciation d'un individu avec l'identifiant de type String
+package individu_String is new individu(T_Identifiant => String);
+use individu_String;
 
 -- Instanciation d'un Arbre_Bin avec les données génériques d'un arbre généalogique
 package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu);
@@ -30,7 +38,8 @@ use arbre_genealogique;
  function get_informations(arbre : in T_Arbre_Genealog) return T_Individu;
 
  -- Semantique : Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
-   -- Paramètres : Néant
+   -- Paramètres :
+   --     F_Individu : IN T_Individu -- Individu de l'arbre créé
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Retourne : Un element null de type T_Arbre_Bin
@@ -47,7 +56,7 @@ use arbre_genealogique;
    -- Exceptions :
    --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
    --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
-   procedure ajouterParent(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin ; F_PereOuMere : in Boolean);
+   procedure ajouterParent(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Individu ; F_PereOuMere : in Boolean);
 
    -- Semantique :  Ajouter un père à un noeud donné
    -- Paramètres :
@@ -58,7 +67,7 @@ use arbre_genealogique;
    -- Exceptions :
    --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
    --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
-   procedure ajouterPere(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin);
+   procedure ajouterPere(F_Arbre : in out T_Arbre_Bin ; F_Pere : in T_Individu);
 
    -- Semantique :  Ajouter une mère à un noeud donné
    -- Paramètres :
@@ -69,7 +78,7 @@ use arbre_genealogique;
    -- Exceptions :
    --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
    --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
-   procedure ajouterMere(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin);
+   procedure ajouterMere(F_Arbre : in out T_Arbre_Bin ; F_Mere : in T_Individu);
 
    -- Semantique : Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
    -- Paramètres :

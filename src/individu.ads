@@ -1,5 +1,4 @@
-with Arbre_Bin:
-with infos;
+with Ada.Text_IO; ada.Text_IO;
 
 generic
     type T_Identifiant is private;
@@ -28,30 +27,28 @@ package individu is
     procedure set_date_deces(individu : in out T_Individu ; date_naissance : in String);
     function get_date_deces(individu : in T_Individu) return String;
 
-    procedure creerIndividu()
-       function creerIndividu(id : in T_Identifiant, donnees : in T_Donnees) return T_Individu is
-      individu : T_Individu;
-   begin
-      individu.id := id;
-      return individu;
-   end creerIndividu;
+    function creerIndividu(id : in T_Identifiant) return T_Individu;
+    
+    generic
+        with procedure afficherId(F_Individu : in T_Individu);
+    procedure afficherIndividuId(F_Individu : in T_Individu);
 
 
 private
 
-    type informations is access T_Informations;
-
-    type T_Individu is record
-        id : Integer;
-        informations : T_Informations;
-    end record;
+    type PT_informations is access T_Informations;
 
     type T_Informations is record
-        nom : String(1..CMAX);
-        prenom : String(1..CMAX);
-        sexe : Character;
-        date_naissance : String(1..CMAX);
-        date_deces : String(1..CMAX);
+        Nom : String(1..CMAX);
+        Prenom : String(1..CMAX);
+        Sexe : Character;
+        Date_naissance : String(1..CMAX);
+        Date_deces : String(1..CMAX);
+    end record;
+
+    type T_Individu is record
+        Id : T_Identifiant;
+        Informations : PT_informations;
     end record;
 
 end individu;
