@@ -1,4 +1,5 @@
 with Arbre_Bin;
+with arbre_genealog;
 with Ada.Text_IO; use Ada.Text_IO;
 
 procedure Main is
@@ -6,7 +7,7 @@ procedure Main is
     package arbre_geneal is new Arbre_Genealog(T_Identifiant => Integer);
     use arbre_geneal;
 
-    arbre : arbre_geneal.arbre_genealogique
+    arbre : arbre_genealogique.T_Arbre_Bin;
     
 
     --Put(Integer'Image(x));
@@ -19,7 +20,7 @@ begin
 
     Put_line("---------------------Affichage de l'arbre--------------------");
 
-    arbre := arbre_geneal.creer(10, ...);
+    arbre := arbre_geneal.creer(indiv.creerIndividu(1));
     ajouterPere(arbre, ...);
     ajouterMere(arbre, ...);
     test_pere := identifierAncetres(10,1);

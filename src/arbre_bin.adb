@@ -1,15 +1,13 @@
 package body Arbre_Bin is
 
    -- Initialise l'arbre binaire
-   function initialiser return T_Arbre_Bin is
-      arbre  : T_Arbre_Bin;
+   procedure initialiser(arbre : out T_Arbre_Bin) is
    begin
       arbre := null;
-      return arbre;
    end initialiser;
 
    -- Determine si l'arbre est vide
-   function estVide (arbre : T_Arbre_Bin) return Boolean is
+   function estVide (arbre : in T_Arbre_Bin) return Boolean is
    begin
       return arbre = null;
    end estVide;

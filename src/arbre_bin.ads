@@ -19,15 +19,15 @@ package Arbre_Bin is
    identifiant_incoherent : exception;
    est_feuille : exception;
 
-   -- Semantique : Initialiser l'arbre binaire
+   -- Semantique : Initialise l'arbre binaire
    -- Paramètres : Néant
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
-   -- Retourne : Un element null de type T_Arbre_Bin
    -- Exceptions : Néant
-   function initialiser return T_Arbre_Bin;
+   procedure initialiser initialiser(arbre : out T_Arbre_Bin);
 
-   -- Semantique : Determiner si l'arbre est vide
+
+   -- Semantique : Determine si l'arbre est vide
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dont le catactère 'vide' doit être determinée
    -- Pré-conditionsns : Néant
@@ -36,7 +36,7 @@ package Arbre_Bin is
    -- Exceptions : Néant
    function estVide (arbre : in T_Arbre_Bin) return Boolean;
 
-   -- Semantique :  Obtenir le nombre d’éléments de l'arbre.
+   -- Semantique :  Obtient le nombre d’éléments de l'arbre.
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dont la taille doit être determinée
    -- Pré-conditions : Néant
@@ -45,7 +45,7 @@ package Arbre_Bin is
    -- Exceptions : Néant
    function taille (arbre : in T_Arbre_Bin) return Integer;
 
-   -- Semantique :  Insérer l'element avec l'identifiant et la donnée dans l'arbre
+   -- Semantique :  Insère l'element avec l'identifiant et la donnée dans l'arbre
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut inserer
    --   element_precedent : IN T_Element, l'element après lequel il faut insérer
@@ -70,7 +70,7 @@ package Arbre_Bin is
    -- Exceptions : Néant.
    function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Arbre_Bin;
 
-   -- Semantique :  Modifier l'element dans l'arbre
+   -- Semantique :  Modifie l'element dans l'arbre
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut modifier un element
    --   src_element : IN T_Element, l'element à modifier
@@ -83,7 +83,7 @@ package Arbre_Bin is
    --   identifiant_incoherent si l'identifiant de src_element ne corresponds pas à celui de tar_element
    procedure modifier (arbre : in out T_Arbre_Bin ; src_element : in T_Element; tar_element : in T_Element);
 
-   -- Semantique :  Supprimer la donnée dans l’AB Abr.
+   -- Semantique :  Supprime la donnée dans l’AB Abr.
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire dans lequel il faut supprimer un element
    --   element : IN T_Element, l'element à supprimer
@@ -94,7 +94,7 @@ package Arbre_Bin is
    --   valeur_absente si la donnée src_donnee est absente
    procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element);
 
-   -- Semantique :  Afficher l'arbre
+   -- Semantique :  Affiche l'arbre
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire à afficher
    -- Pré-conditions : Néant

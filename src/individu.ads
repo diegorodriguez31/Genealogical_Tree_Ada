@@ -1,12 +1,14 @@
 with Arbre_Bin:
 with infos;
 
+generic
+    type T_Identifiant is private;
 
 package individu is
 
-    type T_Noeud_genealog is private;
-
     type T_Individu is private;
+
+    type T_Informations is private;
 
     CMAX : constant Integer := 30; -- Taille maximum de chaîne de caractère
 
@@ -26,14 +28,18 @@ package individu is
     procedure set_date_deces(individu : in out T_Individu ; date_naissance : in String);
     function get_date_deces(individu : in T_Individu) return String;
 
+    procedure creerIndividu()
 
 private
-    type T_Noeud_genealog is record
-        id : Integer;
-        informations : T_infos;
-    end record;
+
+    type informations is access T_Informations;
 
     type T_Individu is record
+        id : Integer;
+        informations : T_Informations;
+    end record;
+
+    type T_Informations is record
         nom : String(1..CMAX);
         prenom : String(1..CMAX);
         sexe : Character;

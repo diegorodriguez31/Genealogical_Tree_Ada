@@ -6,14 +6,18 @@ generic
      type T_Donnee is private;
 package Arbre_Genealog is
 
+  type T_Individu is record
+    id : T_Identifiant;
+    informations : T_Informations; -- pointeur sur un record car si les infos n'existent pas on met nul
+  end record;
+
  -- type T_Individu is private;
 -- type T_Arbre_Genealog is access T_Individu;
 
-function areEquals(arbre1, arbre2 : in T_Arbre_Genealog) return Boolean;
 
--- Instanciation d'un Arbre_Bin avec les données d'un arbre généalogique
-package P_Arbre_Genealog is new Arbre_Bin(T_Individu,...);
-use P_Arbre_Genealog;
+-- Instanciation d'un Arbre_Bin avec les données génériques d'un arbre généalogique
+package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu);
+use arbre_genealogique;
 
  -- Getters / Setters
  procedure set_id(arbre : in out T_Arbre_Genealog ; id : in Integer);
@@ -29,131 +33,158 @@ use P_Arbre_Genealog;
    -- Paramètres : Néant
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
-   -- Retourne : Un element null de type T_Arbre_Gen
+   -- Retourne : Un element null de type T_Arbre_Bin
    -- Exceptions : valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
-   function creer(Id : in T_Id ; Donnee : in T_Donnee) return T_Arbre_Gen;
+   function creer(F_Individu : in T_Individu) return T_Arbre_Bin;
 
    -- Semantique :  Ajouter un parent à un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id, -- Identifiant du noeud auquel on ajoute un parent
-   --    Parent : IN T_Arbre_Gen, -- Parent que l'on ajoute
-   --    PereOuMere : IN Boolean -- Père si true et mère si false
+   --    F_Arbre : IN OUT T_Arbre_Bin, -- Arbre auquel on ajoute un parent
+   --    F_Parent : IN T_Arbre_Bin, -- Parent que l'on ajoute
+   --    F_PereOuMere : IN Boolean -- Père si true et mère si false
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre contient le parent ajouté
    -- Exceptions :
    --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
    --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
-   procedure ajouterParent(Id : in T_Id ; Parent : in T_Arbre_Gen ; PereOuMere : in Boolean);
+   procedure ajouterParent(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin ; F_PereOuMere : in Boolean);
+
+   -- Semantique :  Ajouter un père à un noeud donné
+   -- Paramètres :
+   --    F_Arbre : IN OUT T_Arbre_Bin, -- Arbre auquel on ajoute le père
+   --    F_Parent : IN T_Arbre_Bin, -- Parent que l'on ajoute
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'arbre contient le parent ajouté
+   -- Exceptions :
+   --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
+   --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
+   procedure ajouterPere(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin);
+
+   -- Semantique :  Ajouter une mère à un noeud donné
+   -- Paramètres :
+   --    F_Arbre : IN OUT T_Arbre_Bin, -- Arbre auquel on ajoute la mère
+   --    F_Parent : IN T_Arbre_Bin, -- Parent que l'on ajoute
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'arbre contient le parent ajouté
+   -- Exceptions :
+   --    arbre_null,  -- Renvoie arbre_null si l'arbre est null
+   --    valeur_existante -- Renvoie valeur_existante si l'Id existe déjà
+   procedure ajouterMere(F_Arbre : in out T_Arbre_Bin ; F_Parent : in T_Arbre_Bin);
 
    -- Semantique : Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
    -- Paramètres :
-   --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
+   --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
    -- Pré-conditions : Néant
    -- Post-conditions : Le nombre d'ancêtres est renvoyé
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   function nombreAncetres(Id : in T_Id) return Integer;
+   function nombreAncetres(F_Arbre : in T_Arb_Bin) return Integer;
 
    -- Identifier les ancêtres d'une génération donnée pour un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
-   --    Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
+   --    F_Generation : IN Integer -- Génération par rapport au noeud donné
    -- Pré-conditions : Néant
    -- Post-conditions : Les ancêtres de la génération donnée est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure identifierAncetres(Id : in T_Id ; Generation : in Integer);
+   procedure identifierAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
 
    -- Semantique : Obtenir l'ensemble des ancêtres situés à une certaine génération d'un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id, -- Identifiant du noeud de l'individu donné
-   --    Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Arbre : IN OUT T_Arb_Bin, -- Identifiant du noeud de l'individu donné
+   --    F_Generation : IN Integer -- Génération par rapport au noeud donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des ancêtres est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure ensembleAncetres(Id : in T_Id ; Generation : in Integer);
+   procedure ensembleAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
 
    -- Sémantique : Identifier les descendants d'une génération donnée pour un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
-   --    Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
+   --    F_Generation : IN Integer -- Génération par rapport au noeud donné
    -- Pré-conditions : Néant
    -- Post-conditions : Les descendants de la génération donnée est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure identifierDescendants(Id : in T_Id ; Generation : in Integer);
+   procedure identifierDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
 
    -- Sémantique : Obtenir la succession de descendants d'une génération donnée pour un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id, -- Identifiant du noeud de l'individu donné
-   --    Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Arbre : IN OUT T_Arb_Bin, -- Identifiant du noeud de l'individu donné
+   --    F_Generation : IN Integer -- Génération par rapport au noeud donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des descendants est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure ensembleDescendants(Id : in T_Id ; Generation : in Integer);
+   procedure ensembleDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
 
    -- Sémantique : Afficher l'arbre à partir d'un noeud donné
    -- Paramètres :
-   --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
+   --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure afficherArbreGen(Id : in T_Id);
+   procedure afficherArbreGen(F_Arbre : in T_Arb_Bin);
 
    -- Sémantique : Supprimer, pour un arbre, un noeud et ses ancêtres
    -- Paramètres :
-   --    Id : IN OUT T_Id -- Identifiant du noeud de l'individu donné
+   --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
    -- Pré-conditions : Néant
    -- Post-conditions : Le noeud et ses ancêtres sont supprimés
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure supprimerNoeudEtAncetres(Id : in T_Id);
+   procedure supprimerNoeudEtAncetres(F_Arbre : in out T_Arb_Bin);
 
    -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont inconnus
    -- Paramètres :
-   --    arbre : IN T_Arbre_Gen -- Arbre donné
+   --    F_Arbre_Entier : IN T_Arbre_Bin -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus qui n'ont pas de parent connu est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeAucunParent(arbre : in T_Arbre_Gen);
+   procedure listeAucunParent(F_Arbre_Entier : in T_Arbre_Bin);
 
    -- Sémantique : Obtenir l'ensemble des individus qui n'ont qu'un parent connu
    -- Paramètres :
-   --    arbre : IN T_Arbre_Gen -- Arbre donné
+   --    F_Arbre_Entier : IN T_Arbre_Bin -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus qui n'ont qu'un parent connu est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeUnSeulParent(arbre : in T_Arbre_Gen);
+   procedure listeUnSeulParent(F_Arbre_Entier : in T_Arbre_Bin);
 
    -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont connus
    -- Paramètres :
-   --    arbre : IN T_Arbre_Gen -- Arbre donné
+   --    F_Arbre_Entier : IN T_Arbre_Bin -- Arbre donné
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des individus dont les deux parents sont connus est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-   procedure listeDeuxParents(arbre : in T_Arbre_Gen);
+   procedure listeDeuxParents(F_Arbre_Entier : in T_Arbre_Bin);
 
    -- Sémantique : Obtenir l'ensemble des individus dont les deux parents sont connus
    -- Paramètres :
-   --    arbre : IN T_Arbre_Gen, -- Arbre entier
-   --    compteur : IN Integer   -- Compteur pour l'affichage en tabulations
+   --    F_Arbre_Entier : IN T_Arbre_Bin, -- Arbre entier
+   --    F_Compteur : IN Integer   -- Compteur pour l'affichage en tabulations
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre généalogique est affiché
    -- Exceptions : arbre_null -- Renvoie arbre_null si l'arbre est null
-  procedure afficher(arbre : in T_ArbreGenealog;  compteur : Integer);
+  procedure afficher(F_Arbre_Entier : in T_Arbre_Bin;  F_Compteur : Integer);
 
 
-private
-  type T_Arbre_Gen is access T_Arb_Bin
+   -- Sémantique : Vérifie si deux arbres sont égaux
+   -- Paramètres :
+   --    F_Arbre1, F_Arbre2 : IN T_Arbre_Bin, -- Arbre entier
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Exceptions : Néant
+  function egaux(F_Arbre1, F_Arbre2 : in T_Arbre_Bin) return Boolean;
 
 end Arbre_Genealog;
