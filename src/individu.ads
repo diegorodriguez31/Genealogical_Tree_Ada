@@ -29,6 +29,13 @@ package individu is
     function get_date_deces(individu : in T_Individu) return String;
 
     procedure creerIndividu()
+       function creerIndividu(id : in T_Identifiant, donnees : in T_Donnees) return T_Individu is
+      individu : T_Individu;
+   begin
+      individu.id := id;
+      return individu;
+   end creerIndividu;
+
 
 private
 

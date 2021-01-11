@@ -6,11 +6,10 @@ package body arbre_genealog is
    use arbre_genealogique;
 
    -- Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
-   function creer(Id : in T_Id ; Donnee : in T_Donnee) return T_Arbre_Gen is
+   function creer(F_Individu : in T_Individu) return T_Arbre_Gen is
       arbre : T_Arbre_Bin;
    begin
-      arbre := arbre_genealogique.creer(individu);
-      creerIndividu(id, donnee)
+      arbre := arbre_genealogique.creer(F_Individu);
       return arbre;
    end creer;
 
@@ -113,13 +112,6 @@ function nombreAncetres(Id : in T_Id) return Integer is
       end if;
    end afficher;
 
-   function creerIndividu(id : in T_Identifiant, donnees : in T_Donnees) return T_Individu is
-      individu : T_Individu;
-   begin
-      individu.id := id;
-      return individu;
-   end creerIndividu;
-
    function ancetrePaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
    begin
    end ancetrePaternelOrdreN;
@@ -127,5 +119,12 @@ function nombreAncetres(Id : in T_Id) return Integer is
    function ancetreMaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
    begin
    end ancetreMaternelOrdreN;
+
+   -- Vérifie si les deux arbres sont égaux
+   function egaux(F_Arbre1, F_Arbre2 : in T_Arbre_Bin) return Boolean is
+   begin
+      return get_id(F_Arbre1) = get_id(F_Arbre2);
+   end egaux;
+
 
 end Arbre_Genealog;
