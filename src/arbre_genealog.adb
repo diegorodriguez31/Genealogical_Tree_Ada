@@ -32,13 +32,13 @@ package body arbre_genealog is
 
 
    -- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris)
-   function nombreAncetres(F_Arbre : in T_Arb_Bin) return Integer is
+   function nombreAncetres(F_Arbre : in T_Arbre_Bin) return Integer is
    begin
          return arbre_genealogique.taille(F_Arbre);
    end nombreAncetres;
 
    --Identifier les ancêtres d'une génération donnée pour un noeud donné
-   procedure identifierAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer, F_Compteur : in Integer) is
+   procedure identifierAncetres(F_Arbre : in T_Arbre_Bin ; F_Generation : in Integer, F_Compteur : in Integer) is
    begin
       if F_Compteur = F_Generation then
          Put(F_Arbre.all.Element.all.Id);
@@ -51,7 +51,7 @@ package body arbre_genealog is
    end identifierAncetres;
 
    -- Obtenir l'ensemble des ancêtres situés à une certaine génération d'un noeud donné
-   procedure ensembleAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer, F_Compteur : in Integer) is
+   procedure ensembleAncetres(F_Arbre : in T_Arbre_Bin ; F_Generation : in Integer, F_Compteur : in Integer) is
    begin
       Put(F_Arbre.all.Element.all.Id);
       Put(", ");
@@ -62,7 +62,7 @@ package body arbre_genealog is
    end ensembleAncetres;
 
    -- Identifier les descendants d'une génération donnée pour un noeud donné
-   procedure identifierDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
+   procedure identifierDescendants(F_Arbre : in T_Arbre_Bin ; F_Generation : in Integer) is
    begin
       Put(F_Arbre.all.Element.all.Id);
    -- soit j'ajoute un pointeur
@@ -70,62 +70,19 @@ package body arbre_genealog is
    end identifierDescendants;
 
    -- Obtenir la succession de descendants d'une génération donnée pour un noeud donné
-   procedure ensembleDescendants(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer) is
+   procedure ensembleDescendants(F_Arbre : in T_Arbre_Bin ; F_Generation : in Integer) is
    begin
    end ensembleDescendants;
 
-   -- Afficher l'arbre à partir d'un noeud donné
-   procedure afficherArbreGen(F_Arbre : in T_Arb_Bin) is
+   -- Afficher l'arbre généalogique à partir d'un noeud donné
+   procedure afficherArbreGen(F_Arbre : in T_Arbre_Bin, F_Compteur : in Integer) is
    begin
-   end afficherArbreGen;
-
-   -- Supprimer, pour un arbre, un noeud et ses ancêtres
-   procedure supprimerNoeudEtAncetres(F_Arbre : in out T_Arb_Bin) is
-   begin
-   end supprimerNoeudEtAncetres;
-
-   -- Obtenir l'ensemble des individus dont les deux parents sont inconnus
-   procedure listeAucunParent(F_Arbre_Entier : in T_Arbre_Bin) is
-   begin
-      if(F_Arbre_Entier.all.sous_arbre_droit = null and F_Arbre_Entier.all.sous_arbre_gauche = null) then
-         Put(F_Arbre_Entier.all.Element.all.id);
-         Put(", ");
-      end if;
-      listeAucunParent(getSousArbreGauche(F_Arbre_Entier));
-      listeAucunParent(getSousArbreDroit(F_Arbre_Entier));
-   end listeAucunParent;
-
-   -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
-   procedure listeUnSeulParent(F_Arbre_Entier : in T_Arbre_Bin) is
-   begin
-      if(F_Arbre_Entier.all.sous_arbre_droit = null xor F_Arbre_Entier.all.sous_arbre_gauche = null) then
-         Put(F_Arbre_Entier.all.Element.all.id);
-         Put(", ");
-      end if;
-      listeUnSeulParent(getSousArbreGauche(F_Arbre_Entier));
-      listeUnSeulParent(getSousArbreDroit(F_Arbre_Entier));
-   end listeUnSeulParent;
-
-   -- Obtenir l'ensemble des individus dont les deux parents sont connus
-   procedure listeDeuxParents(F_Arbre_Entier : in T_Arbre_Bin) is
-   begin
-      if(F_Arbre_Entier.all.sous_arbre_droit /= null and F_Arbre_Entier.all.sous_arbre_gauche /= null) then
-         Put(F_Arbre_Entier.all.Element.all.id);
-         Put(", ");
-      end if;
-      listeDeuxParents(getSousArbreGauche(F_Arbre_Entier));
-      listeDeuxParents(getSousArbreDroit(F_Arbre_Entier));
-   end listeDeuxParents;
-
-   -- Affiche l'arbre généalogique
-   procedure afficher(F_Arbre_Entier : in T_Arbre_Bin;  F_Compteur : Integer) is
-   begin
-      if estVide(arbre) then
+      if estVide(F_Arbre) then
          null;
       else
-         --afficherDonneeId(arbre.all.donnee.id);
+         --afficherDonneeId(F_Arbre.all.Element.all.Id);
 
-         if estVide(arbre.all.Sous_Arbre_Gauche) then
+         if estVide(F_Arbre.all.Sous_Arbre_Gauche) then
             null;
          else
             New_Line;
@@ -133,9 +90,9 @@ package body arbre_genealog is
                Put("    ");
             end loop;
             Put("-- pere : ");
-            afficher(arbre.all.Sous_Arbre_Gauche, F_Compteur+1);
+            afficher(F_Arbre.all.Sous_Arbre_Gauche, F_Compteur+1);
          end if;
-         if estVide(arbre.all.Sous_Arbre_Droit) then
+         if estVide(F_Arbre.all.Sous_Arbre_Droit) then
             null;
          else
             New_Line;
@@ -143,17 +100,83 @@ package body arbre_genealog is
                Put("    ");
             end loop;
             Put("-- mere : ");
-            afficher(arbre.all.Sous_Arbre_Droit, F_Compteur+1);
+            afficher(F_Arbre.all.Sous_Arbre_Droit, F_Compteur+1);
          end if;
       end if;
-   end afficher;
+   end afficherArbreGen;
 
-   function ancetrePaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
+   -- Supprimer, pour un arbre, un noeud et ses ancêtres
+   procedure supprimerNoeudEtAncetres(F_Arbre : in out T_Arbre_Bin) is
    begin
+   end supprimerNoeudEtAncetres;
+
+   -- Obtenir l'ensemble des individus dont les deux parents sont inconnus
+   procedure listeAucunParent(F_Arbre : in T_Arbre_Bin) is
+   begin
+      if(F_Arbre.all.sous_arbre_droit = null and F_Arbre.all.sous_arbre_gauche = null) then
+         Put(F_Arbre.all.Element.all.id);
+         Put(", ");
+      end if;
+      listeAucunParent(getSousArbreGauche(F_Arbre));
+      listeAucunParent(getSousArbreDroit(F_Arbre));
+   end listeAucunParent;
+
+   -- Obtenir l'ensemble des individus qui n'ont qu'un parent connu
+   procedure listeUnSeulParent(F_Arbre : in T_Arbre_Bin) is
+   begin
+      if(F_Arbre.all.sous_arbre_droit = null xor F_Arbre.all.sous_arbre_gauche = null) then
+         Put(F_Arbre.all.Element.all.id);
+         Put(", ");
+      end if;
+      listeUnSeulParent(getSousArbreGauche(F_Arbre));
+      listeUnSeulParent(getSousArbreDroit(F_Arbre));
+   end listeUnSeulParent;
+
+   -- Obtenir l'ensemble des individus dont les deux parents sont connus
+   procedure listeDeuxParents(F_Arbre : in T_Arbre_Bin) is
+   begin
+      if(F_Arbre.all.sous_arbre_droit /= null and F_Arbre.all.sous_arbre_gauche /= null) then
+         Put(F_Arbre.all.Element.all.id);
+         Put(", ");
+      end if;
+      listeDeuxParents(getSousArbreGauche(F_Arbre));
+      listeDeuxParents(getSousArbreDroit(F_Arbre));
+   end listeDeuxParents;
+
+  
+
+   procedure ancetrePaternel(F_Arbre : in T_Arbre_Bin; F_Generation : in Integer, F_Compteur : in Integer) is
+   begin
+      if F_Generation = 0 then
+         raise pas_ancetre with "Mettez une génération supérieure à 0 pour trouver un ancêtre"
+      else
+         sous_arbre_gauche = getSousArbreGauche(F_Arbre);
+         if (sous_arbre_gauche /= null and F_Compteur =  F_Generation - 1) then
+            Put(sous_arbre_gauche.all.Element.all.Id);
+            Put(", ");
+         end if;
+         while F_Compteur /= F_Generation - 1 loop
+            ancetrePaternel(getSousArbreGauche(F_Arbre), F_Generation, F_Compteur + 1);
+            ancetrePaternel(getSousArbreDroit(F_Arbre), F_Generation, F_Compteur + 1);
+         end loop;
+      end if;
    end ancetrePaternelOrdreN;
 
-   function ancetreMaternelOrdreN(arbre : in T_Arbre_Bin; genetion : in Integer) is
+   procedure ancetreMaternel(F_Arbre : in T_Arbre_Bin; F_Generation : in Integer, F_Compteur : in Integer) is
    begin
+      if F_Generation = 0 then
+         raise pas_ancetre with "Mettez une génération supérieure à 0 pour trouver un ancêtre"
+      else
+         sous_arbre_droit = getSousArbreDroit(F_Arbre);
+         if (sous_arbre_droit /= null and F_Compteur =  F_Generation - 1) then
+            Put(sous_arbre_droit.all.Element.all.Id);
+            Put(", ");
+         end if;
+         while F_Compteur /= F_Generation - 1 loop
+            ancetreMaternel(getSousArbreGauche(F_Arbre), F_Generation, F_Compteur + 1);
+            ancetreMaternel(getSousArbreDroit(F_Arbre), F_Generation, F_Compteur + 1);
+         end loop;
+      end if;
    end ancetreMaternelOrdreN;
 
    -- Vérifie si les deux arbres sont égaux

@@ -124,7 +124,7 @@ package Arbre_Bin is
    --   valeur_absente si la donnée src_donnee est absente
    procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element);
 
-   -- Semantique :  Affiche l'arbre
+   -- Semantique :  Affiche l'arbre dans l'ordre préfixé
    -- Paramètres :
    --   arbre : IN T_Arbre_Bin, l'arbre binaire à afficher
    -- Pré-conditions : Néant

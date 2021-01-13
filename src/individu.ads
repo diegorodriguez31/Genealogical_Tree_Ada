@@ -35,7 +35,7 @@ package individu is
 
 
 private
-
+    -- Je choisis de pointer sur l'enregistrement des informations pour pouvoir mettre le pointeur à null s'il n'y a pas d'information
     type PT_informations is access T_Informations;
 
     type T_Informations is record

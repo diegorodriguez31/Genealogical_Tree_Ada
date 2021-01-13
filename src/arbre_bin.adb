@@ -149,7 +149,7 @@ package body Arbre_Bin is
          end if;
       end supprimer;
 
-      -- Affiche l'arbre
+      -- Affiche l'arbre dans l'ordre préfixé
       procedure afficher (arbre : in T_Arbre_Bin) is
       begin
          if estVide(arbre) then
@@ -162,13 +162,13 @@ package body Arbre_Bin is
       end afficher;
 
       -- Renvoie le sous-arbre gauche
-      function getSousArbreGauche(F_Arbre : in T_Arbre_Bin) return T_Arb_Bin is
+      function getSousArbreGauche(F_Arbre : in T_Arbre_Bin) return T_Arbre_Bin is
       begin
          return F_arbre.all.Sous_Arbre_Gauche;
       end getSousArbreGauche;
 
       -- Renvoie le sous-arbre droit
-      function getSousArbreDroit(F_Arbre : in T_Arbre_Bin) return T_Arb_Bin is
+      function getSousArbreDroit(F_Arbre : in T_Arbre_Bin) return T_Arbre_Bin is
       begin
          return F_arbre.all.Sous_Arbre_Droit;
       end getSousArbreDroit;
