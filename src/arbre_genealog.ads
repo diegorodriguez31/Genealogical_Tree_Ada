@@ -94,23 +94,25 @@ use arbre_genealogique;
    -- Paramètres :
    --    F_Arbre : IN OUT T_Arb_Bin -- Identifiant du noeud de l'individu donné
    --    F_Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Compteur : IN Integer -- Compteur pour trouver la génération relative
    -- Pré-conditions : Néant
    -- Post-conditions : Les ancêtres de la génération donnée est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure identifierAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
+   procedure identifierAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer, F_Compteur : in Integer);
 
    -- Semantique : Obtenir l'ensemble des ancêtres situés à une certaine génération d'un noeud donné
    -- Paramètres :
    --    F_Arbre : IN OUT T_Arb_Bin, -- Identifiant du noeud de l'individu donné
    --    F_Generation : IN Integer -- Génération par rapport au noeud donné
+   --    F_Compteur : IN Integer -- Compteur pour trouver la génération relative
    -- Pré-conditions : Néant
    -- Post-conditions : L'ensemble des ancêtres est affiché
    -- Exceptions :
    --    arbre_null, -- Renvoie arbre_null si l'arbre est null
    --    valeur_absente -- Renvoie valeur_absente si le noeud correspondant à l'Id n'existe pas
-   procedure ensembleAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer);
+   procedure ensembleAncetres(F_Arbre : in T_Arb_Bin ; F_Generation : in Integer, F_Compteur : in Integer);
 
    -- Sémantique : Identifier les descendants d'une génération donnée pour un noeud donné
    -- Paramètres :

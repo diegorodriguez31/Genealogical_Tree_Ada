@@ -2,7 +2,7 @@ with Ada.Text_IO; use ada.Text_IO;
 
 generic
    type T_Element is private;
-   with function estEquivalent(element1 : in T_Element; element2 : in T_Element) return Boolean;
+   with function egaux(element1 : in T_Element; element2 : in T_Element) return Boolean;
 package Arbre_Bin is
 
    type T_Arbre_Bin is private;

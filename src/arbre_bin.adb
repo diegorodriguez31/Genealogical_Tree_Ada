@@ -88,9 +88,9 @@ package body Arbre_Bin is
       noeud := arbre;
       while (not estVide(noeud)) and then (noeud.all.element /= element or noeud.all.Sous_Arbre_Gauche /= null or noeud.all.Sous_Arbre_Droit /= null) loop
          if retourner_precedent then
-            if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.element, element) then
+            if noeud.all.sous_arbre_gauche /= null and then egaux(noeud.all.sous_arbre_gauche.element, element) then
                return noeud;
-            elsif noeud.all.sous_arbre_droit /= null and then estEquivalent(noeud.all.sous_arbre_droit.element, element) then
+            elsif noeud.all.sous_arbre_droit /= null and then egaux(noeud.all.sous_arbre_droit.element, element) then
                return noeud;
             else
                null;
@@ -115,7 +115,7 @@ package body Arbre_Bin is
       if estVide(arbre) then
          raise arbre_null with "Modification d'un arbre vide impossible";
       else
-         if not estEquivalent(src_element, tar_element) then
+         if not egaux(src_element, tar_element) then
             raise identifiant_incoherent with "Les elements à modifier ne correspondent pas";
          else
             noeud := recherche(arbre => arbre, element => src_element, retourner_precedent => false);
@@ -140,7 +140,7 @@ package body Arbre_Bin is
                raise element_absent with "Suppression d'une valeur absente de l'arbre";
             else
                noeud := recherche(arbre, element, True);
-               if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.all.element, element) then
+               if noeud.all.sous_arbre_gauche /= null and then egaux(noeud.all.sous_arbre_gauche.all.element, element) then
                   noeud.all.sous_arbre_gauche := null;
                else
                   noeud.all.sous_arbre_droit := null;
