@@ -4,6 +4,7 @@ generic
    --  type T_Id is private;
    --  type T_Donnee is private;
    type T_Element is private;
+      with procedure afficherElement(Element : in T_Element);
    with function estEquivalent(element1 : in T_Element; element2 : in T_Element) return Boolean;
 package Arbre_Bin is
 
@@ -26,7 +27,7 @@ package Arbre_Bin is
    -- Post-conditions : Néant
    -- Retourne : Un element null de type T_Arbre_Bin
    -- Exceptions : Néant
-   function initialiser return T_Arbre_Bin;
+   procedure initialiser(arbre : out T_Arbre_Bin);
 
    -- Semantique : Determiner si l'arbre est vide
    -- Paramètres :
@@ -81,7 +82,6 @@ package Arbre_Bin is
    -- Exceptions :
    --   null_exception si l'arbe est vide
    --   valeur_absente si la donnée src_donnee est absente
-   --   identifiant_incoherent si l'identifiant de src_element ne corresponds pas à celui de tar_element
    procedure modifier (arbre : in out T_Arbre_Bin ; src_element : in T_Element; tar_element : in T_Element);
 
    -- Semantique :  Supprimer la donnée dans l’AB Abr.
@@ -101,9 +101,8 @@ package Arbre_Bin is
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est affiché
    -- Exceptions : Néant
-   generic
-      with procedure afficherElement(Element : in T_Element);
    procedure afficher (arbre : in T_Arbre_Bin);
+
 
 private
    type T_Noeud;

@@ -1,125 +1,49 @@
 <?xml version="1.0"?>
 <Locations >
+  <Project>
+    <vfs_file />
+    <file_marker column=" 25" line=" 104" >
+      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 19" >
+      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_genealog.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 47" line=" 4" >
+      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_genealog.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 27" >
+      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\p_individu.ads</vfs_file>
+    </file_marker>
+  </Project>
   <Project >
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\Arbre_Bin.ads</vfs_file>
+    <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_file>
+    <file_marker column=" 25" line=" 104">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\Arbre_Bin.adb</vfs_file>
+    <file_marker column=" 9" line=" 19">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 13" line=" 70" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
+    <file_marker column=" 1" line=" 1">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_genealog.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 23" line=" 110" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
+    <file_marker column=" 47" line=" 4">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_genealog.ads</vfs_file>
     </file_marker>
-    <file_marker column=" 25" line=" 61" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 88" line=" 63" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 51" line=" 64" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 27" line=" 61" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 12" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 29" line=" 5" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 28" line=" 12" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 20" line=" 48" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 42" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 20" line=" 48" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 42" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 20" line=" 48" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 47" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 119" line=" 70" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 23" line=" 68" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 33" line=" 71" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 22" line=" 68" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 39" line=" 52" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 31" line=" 49" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 39" line=" 46" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 31" line=" 43" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 34" line=" 204" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 31" line=" 43" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 39" line=" 46" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 31" line=" 49" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
-    </file_marker>
-    <file_marker current="true" column=" 39" line=" 52" >
-      <vfs_project>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
-      <vfs_file>D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\arbre_bin.adb</vfs_file>
+    <file_marker current="true" column=" 1" line=" 27">
+      <vfs_project >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\arbre_genealog_kleine_killian.gpr</vfs_project>
+      <vfs_file >D:\Utilisateurs\killi\Documents\GNAT-GPS\Git_Project\src\p_individu.ads</vfs_file>
     </file_marker>
   </Project>
 </Locations>

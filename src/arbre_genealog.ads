@@ -1,7 +1,7 @@
 
 package Arbre_Genealog is
 
- -- Semantique : Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
+   -- Semantique : Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
    -- Paramètres : Néant
    -- Pré-conditions : Néant
    -- Post-conditions : Néant

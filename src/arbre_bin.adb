@@ -1,11 +1,9 @@
 package body Arbre_Bin is
 
    -- Initialiser l'arbre binaire
-   function initialiser return T_Arbre_Bin is
-      arbre  : T_Arbre_Bin;
+   procedure initialiser(arbre : out T_Arbre_Bin) is
    begin
       arbre := null;
-      return arbre;
    end initialiser;
 
    -- Determiner si l'arbre est vide
@@ -32,24 +30,24 @@ package body Arbre_Bin is
       if estVide(arbre) then
          arbre :=  new T_Noeud'(nouvel_element, null, null);
       else
-         if recherche(arbre, element_precedent, False) = null then
-            raise element_existant;
+         if recherche(arbre => arbre, element => nouvel_element, retourner_precedent => false) /= null then raise
+              element_existant;
          else
             element_prec := recherche(arbre => arbre, element => element_precedent, retourner_precedent => false);
             if element_prec = null then
                raise element_absent;
             else
                if inserer_a_droite then
-                  if arbre.all.sous_arbre_droit /= null then
+                  if not estVide(element_prec.all.sous_arbre_droit) then
                      raise emplacement_invalide;
                   else
-                     Inserer(arbre.all.sous_arbre_droit, element_precedent, nouvel_element, True);
+                     Inserer(element_prec.all.sous_arbre_droit, element_precedent, nouvel_element, True);
                   end if;
                else
-                  if arbre.all.sous_arbre_gauche /= null then
+                  if not estVide(element_prec.all.sous_arbre_gauche)then
                      raise emplacement_invalide;
                   else
-                     Inserer(arbre.all.sous_arbre_gauche, element_precedent, nouvel_element, False);
+                     Inserer(element_prec.all.sous_arbre_gauche, element_precedent, nouvel_element, False);
                   end if;
                end if;
             end if;
@@ -62,7 +60,14 @@ package body Arbre_Bin is
       noeud : T_Arbre_Bin;
    begin
       noeud := arbre;
-      while (not estVide(noeud)) and then (noeud.all.element /= element or noeud.all.Sous_Arbre_Gauche /= null or noeud.all.Sous_Arbre_Droit /= null) loop
+      if not estVide(noeud) and then noeud.all.element = element then
+         if retourner_precedent then
+            raise element_absent with "Le noeud demandé est à la base de l'arbre binaire. Il n'as donc pas de précédent";
+         else
+            return noeud;
+         end if;
+      end if;
+      while (not estVide(noeud)) and then (noeud.all.element /= element ) loop
          if retourner_precedent then
             if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.element, element) then
                return noeud;
@@ -81,6 +86,7 @@ package body Arbre_Bin is
             null;
          end if;
       end loop;
+
       return noeud;
    end recherche;
 
@@ -91,8 +97,8 @@ package body Arbre_Bin is
       if estVide(arbre) then
          raise arbre_null with "Modification d'un arbre vide impossible";
       else
-         if not estEquivalent(src_element, tar_element) then
-            raise identifiant_incoherent with "Les elements à modifier ne correspondent pas";
+         if  recherche(arbre => arbre, element => tar_element, retourner_precedent => False) /= null then
+            raise identifiant_incoherent with ("L'élément cible à une valeur deja existante dans l'arbre");
          else
             noeud := recherche(arbre => arbre, element => src_element, retourner_precedent => false);
             if estVide(noeud) then
@@ -102,39 +108,42 @@ package body Arbre_Bin is
             end if;
          end if;
       end if;
-      end modifier;
+   end modifier;
 
-      -- Supprimer la donnée dans l’AB Abr.
-      procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element) is
-         noeud : T_Arbre_Bin;
-      begin
-         if estVide(arbre) then
-            raise arbre_null with "Impossible de supprimer une valeur d'un arbre vide";
+   -- Supprimer la donnée dans l’AB Abr.
+   procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element) is
+      noeud : T_Arbre_Bin;
+   begin
+      if estVide(arbre) then
+         raise arbre_null with "Impossible de supprimer une valeur d'un arbre vide";
+      else
+         noeud := recherche(arbre, element, False);
+         if noeud = null then
+            raise element_absent with "Suppression d'une valeur absente de l'arbre";
+         elsif estEquivalent(arbre.element, element) then
+            arbre := null;
          else
-            noeud := recherche(arbre, element, False);
-            if noeud = null then
-               raise element_absent with "Suppression d'une valeur absente de l'arbre";
+            noeud := recherche(arbre, element, True);
+            if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.all.element, element) then
+               noeud.all.sous_arbre_gauche := null;
             else
-               noeud := recherche(arbre, element, True);
-               if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.all.element, element) then
-                  noeud.all.sous_arbre_gauche := null;
-               else
-                  noeud.all.sous_arbre_droit := null;
-               end if;
+               noeud.all.sous_arbre_droit := null;
             end if;
          end if;
-      end supprimer;
+      end if;
+   end supprimer;
 
-      -- Afficher l'arbre
-      procedure afficher (arbre : in T_Arbre_Bin) is
-      begin
-         if estVide(arbre) then
-            null;
-         else
-            afficherElement(arbre.all.element);
-            Afficher(arbre.all.Sous_Arbre_Gauche);
-            Afficher(arbre.all.Sous_Arbre_Droit);
-         end if;
-      end afficher;
+   -- Afficher l'arbre
+   procedure afficher (arbre : in T_Arbre_Bin) is
+   begin
+      if estVide(arbre) then
+         null;
+      else
+         afficherElement(arbre.all.element);
+         afficher(arbre.all.Sous_Arbre_Gauche);
+         afficher(arbre.all.Sous_Arbre_Droit);
+      end if;
+   end afficher;
 
-   end Arbre_Bin;
+
+end Arbre_Bin;
