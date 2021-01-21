@@ -27,7 +27,7 @@ package P_Individu is
    -- Post-conditions : Néant
    -- Retourne : T_Informations, regroupant les informations données en paramètre
    -- Exceptions : Néant
-   function creerInformations(nom : in Unbounded_String ; prenom : in Unbounded_String) return T_Informations;
+   function creerInformations return T_Informations;
 
    -- Sémantique : Renvoie un individu avec uniquement un identifiant et les informations qui lui correspondent
    -- Paramètres :
@@ -38,6 +38,15 @@ package P_Individu is
    -- Retourne : T_Individu, l'individu
    -- Exceptions : Néant
    function creerIndividu(identifiant : in T_Identifiant ; informations : in T_Informations) return T_Individu;
+
+   -- Sémantique : Renvoie un individu avec uniquement un identifiant  qui lui correspond
+   -- Paramètres :
+   --   identifiant : IN T_Identifiant, identifiant de l'individu a créer
+   -- Pré-conditions : Néant
+   -- Post-conditions : L'individu est créé avec l'identifiant et les informations donnés en paramètre
+   -- Retourne : T_Individu, l'individu
+   -- Exceptions : Néant
+   function creerIndividu(identifiant : in T_Identifiant) return T_Individu;
 
    -- Sémantique : Vérifie si deux individus sont égaux
    -- Paramètres :

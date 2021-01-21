@@ -1,0 +1,4 @@
+menu.ads:45:47: "Arbre_Bin" is not visible
+menu.ads:45:47: non-visible declaration at arbre_bin.ads:8
+menu.ads:45:65: "T_Individu" is not visible
+menu.ads:45:65: non-visible declaration at p_individu.ads:17, instance at arbre_genealog.ads:12

@@ -4,6 +4,8 @@ with P_Individu;
 
 package arbre_genealog is
 
+   type T_Id is new Integer;
+
    procedure affichIdentifiant(identifiant : in Integer);
    function nullIdendifiant(identifiant : in Integer) return Boolean;
    -- Instanciation d'un individu avec l'identifiant de type Integer
@@ -24,20 +26,20 @@ package arbre_genealog is
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Exceptions : Néant
-   procedure creer(arbre : in out T_Arbre_Bin ; individu : in T_Individu);
+   procedure creer(arbre : in out T_Arbre_Bin);
 
    -- Semantique : Ajoute un parent (mère ou père) à un noeud donné
    -- Paramètres :
    --    arbre : IN OUT T_Arbre_Bin, Arbre dans lequel un parent est ajouté
    --    enfant : IN OUT T_Arbre_Bin, noeud auquel il faut ajouter un parent
-   --    parent : IN T_Arbre_Bin, Parent ajouté dans l'arbre
+   --    parent : IN T_Informations, les informations du parent ajouté dans l'arbre
    --    parentEstPere : IN Boolean, Vrai si le parent à ajouter est le père de l'enfant, Faux sinon
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre contient le parent ajouté
    -- Exceptions :
    --    arbre_null, si l'arbre est null
    --    individu_existant, si une personne considérée équivalente existe déjà
-   procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; parent : in T_Individu ; parentEstPere : in Boolean);
+   procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; informations_parent : in T_Informations ; parentEstPere : in Boolean);
 
    -- Semantique : Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris).
    -- Paramètres :
@@ -48,7 +50,7 @@ package arbre_genealog is
    -- Exceptions :
    --    arbre_null, si l'arbre est null
    --    individu_absent, s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
-   function afficherNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer;
+   function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer;
 
    -- Sémantique : Afficher l'arbre généalogique à partir d'un noeud donné.
    -- Paramètres :
@@ -144,12 +146,10 @@ package arbre_genealog is
 
 
 
-
-
-
-
-
 private
+   compteur_identifiant : Integer; -- Un compteur permettant d'affecter un identifiant unique à chaque nouvelle individu ajouté à l'arbre.
+
+
    -- Les surcharges suivantes permettent de prendre en compte la gestion de la génération lors des appels récursifs.
    -- Le paramètre additionnel ne devant être modifié par le client lors de l'utilisation
 

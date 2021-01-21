@@ -3,9 +3,24 @@
 package body P_Individu is
 
    --  Renvoie un individu avec uniquement un identifiant et les informations qui lui correspondent
-   function creerInformations(nom : in Unbounded_String ; prenom : in Unbounded_String) return T_Informations is
+   function creerInformations return T_Informations is
       informations : T_Informations;
+      nom : Unbounded_String;
+      prenom : Unbounded_String;
    begin
+
+      New_Line;
+      Skip_Line;
+      Put("Entrez le nom : ");
+      nom := To_Unbounded_String(Get_Line);
+
+      New_Line;
+      Skip_Line;
+      Put("Entrez le prenom : ");
+      prenom := To_Unbounded_String(Get_Line);
+
+      New_Line;
+
       informations := new T_Infos;
       informations.all.nom := nom;
       informations.all.prenom := prenom;
@@ -21,6 +36,18 @@ package body P_Individu is
       else
          individu.identifiant := identifiant;
          individu.informations := informations;
+         return individu;
+      end if;
+   end creerIndividu;
+
+   --  Renvoie un individu avec uniquement un identifiant  qui lui correspond
+   function creerIndividu(identifiant : in T_Identifiant) return T_Individu is
+      individu : T_Individu;
+   begin
+      if estNullIdentifiant(identifiant) then
+         raise null_identifiant;
+      else
+         individu.identifiant := identifiant;
          return individu;
       end if;
    end creerIndividu;

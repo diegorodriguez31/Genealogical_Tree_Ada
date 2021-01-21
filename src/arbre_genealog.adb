@@ -12,22 +12,29 @@ package body Arbre_Genealog is
       return false; -- Un entier ne peut être null
    end nullIdendifiant;
 
-
    -- Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
-   procedure creer(arbre : in out T_Arbre_Bin ; individu : in T_Individu) is
+   procedure creer(arbre : in out T_Arbre_Bin) is
+      individu : T_Individu;
+      informations : T_Informations;
    begin
+      compteur_identifiant := 1;
+      informations := creerInformations;
+      individu := creerIndividu(identifiant => compteur_identifiant, informations => informations);
       initialiser(arbre => arbre);
       inserer(arbre => arbre, element_precedent => individu, nouvel_element => individu, inserer_a_droite => true);
    end creer;
 
    -- Ajouter un parent (mère ou père) à un noeud donné
-   procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; parent : in T_Individu ; parentEstPere : in Boolean) is
+   procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; informations_parent : in T_Informations ; parentEstPere : in Boolean) is
+      parent : T_Individu;
    begin
+      compteur_identifiant := compteur_identifiant + 1;
+      parent := creerIndividu(identifiant => compteur_identifiant, informations => informations_parent);
       inserer(arbre => arbre, element_precedent => enfant, nouvel_element => parent, inserer_a_droite => parentEstPere);
    end ajouterParent;
 
    -- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris).
-   function afficherNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer is
+   function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer is
       sous_arbre : T_Arbre_Bin;
    begin
       sous_arbre := recherche(arbre => arbre, element => individu, retourner_precedent => false);

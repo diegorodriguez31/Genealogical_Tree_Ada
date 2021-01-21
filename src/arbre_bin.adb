@@ -67,7 +67,7 @@ package body Arbre_Bin is
             return noeud;
          end if;
       end if;
-      while (not estVide(noeud)) and then not estEquivalent(noeud.all.elemen,element ) loop
+      while (not estVide(noeud)) and then not estEquivalent(noeud.all.element,element ) loop
          if retourner_precedent then
             if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.element, element) then
                return noeud;
