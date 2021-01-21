@@ -1,0 +1,6 @@
+individu.adb:6:20: invalid operand types for operator "="
+individu.adb:6:20: left operand has type "T_Individu" defined at individu.ads:27
+individu.adb:6:20: right operand has an access type
+individu.adb:16:19: invalid operand types for operator "="
+individu.adb:16:19: left operand has type "T_Individu" defined at individu.ads:27
+individu.adb:16:19: right operand has an access type

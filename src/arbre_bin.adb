@@ -12,7 +12,7 @@ package body Arbre_Bin is
       return arbre = null;
    end estVide;
 
-   -- Obtenir le nombre d’éléments de l'arbre.
+   -- Obtenir le nombre d'éléments de l'arbre.
    function Taille (arbre : in T_Arbre_Bin) return Integer is
    begin
       if not estVide(arbre) then
@@ -60,14 +60,14 @@ package body Arbre_Bin is
       noeud : T_Arbre_Bin;
    begin
       noeud := arbre;
-      if not estVide(noeud) and then noeud.all.element = element then
+      if not estVide(noeud) and then estEquivalent(noeud.all.element, element) then
          if retourner_precedent then
             raise element_absent with "Le noeud demandé est à la base de l'arbre binaire. Il n'as donc pas de précédent";
          else
             return noeud;
          end if;
       end if;
-      while (not estVide(noeud)) and then (noeud.all.element /= element ) loop
+      while (not estVide(noeud)) and then not estEquivalent(noeud.all.elemen,element ) loop
          if retourner_precedent then
             if noeud.all.sous_arbre_gauche /= null and then estEquivalent(noeud.all.sous_arbre_gauche.element, element) then
                return noeud;
@@ -110,7 +110,7 @@ package body Arbre_Bin is
       end if;
    end modifier;
 
-   -- Supprimer la donnée dans l’AB Abr.
+   -- Supprimer la donnée dans l'AB Abr.
    procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element) is
       noeud : T_Arbre_Bin;
    begin
@@ -133,17 +133,35 @@ package body Arbre_Bin is
       end if;
    end supprimer;
 
-   -- Afficher l'arbre
-   procedure afficher (arbre : in T_Arbre_Bin) is
-   begin
-      if estVide(arbre) then
-         null;
-      else
-         afficherElement(arbre.all.element);
-         afficher(arbre.all.Sous_Arbre_Gauche);
-         afficher(arbre.all.Sous_Arbre_Droit);
-      end if;
-   end afficher;
 
+   --  Retourne l'element du premier noeud de l'arbre donné en paramètre
+   function getElement(arbre : in T_Arbre_Bin) return T_Element is
+   begin
+      if arbre = null then
+         raise arbre_null with "Impossible de renvoyer l'element d'un arbre vide";
+      else
+         return arbre.all.element;
+      end if;
+   end getElement;
+
+   --  Retourne le sous arbre droit de l'arbre donné en paramètre.
+   function getSousArbreDroit(arbre : in T_Arbre_Bin) return T_Arbre_Bin is
+   begin
+      if arbre = null then
+         raise arbre_null with "Impossible de renvoyer le sous arbre droit d'un arbre null";
+      else
+         return arbre.all.sous_arbre_droit;
+      end if;
+   end getSousArbreDroit;
+
+   --  Retourne le sous arbre gauche de l'arbre donné en paramètre.
+   function getSousArbreGauche(arbre : in T_Arbre_Bin) return T_Arbre_Bin is
+   begin
+      if arbre = null then
+         raise arbre_null with "Impossible de renvoyer le sous arbre gauche d'un arbre null";
+      else
+         return arbre.all.sous_arbre_gauche;
+      end if;
+   end getSousArbreGauche;
 
 end Arbre_Bin;
