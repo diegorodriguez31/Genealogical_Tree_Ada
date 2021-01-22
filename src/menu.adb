@@ -3,29 +3,24 @@ package body menu is
 
    procedure lancerArbreGenealogique is
       arbre : arbre_genealogique.T_Arbre_Bin;
-   begin
-      Put_Line("Bievenue. Afin de commencer il vous faut entrer la personne de dernière generation dans l'arbre, les individus de génération antérieure pourront être ajoutés");
-      New_Line;
-      Put("Au suivant");
-      creer(arbre => arbre);
-      demanderSelection(arbre => arbre);
-   end lancerArbreGenealogique;
-
-   procedure demanderSelection(arbre : in out arbre_genealogique.T_Arbre_Bin) is
       selection : Integer;
    begin
+      Put_Line("Bievenue. Afin de commencer il vous faut entrer la personne de dernière generation dans l'arbre, les individus de génération antérieure pourront être ajoutés");
+      creer(arbre => arbre);
       loop
          loop
             afficherSelection;
-            Skip_Line;
             Get(selection);
             exit when selection >= 0 and selection < 20;
          end loop;
          exit when selection = 0;
          traitementSelection(selection, arbre);
       end loop;
-   end demanderSelection;
-
+   exception
+      when others =>
+         Put_Line("Une erreur est survenue. Fermeture du programme");
+         Skip_Line;
+   end lancerArbreGenealogique;
 
    procedure afficherSelection is
    begin
@@ -60,7 +55,7 @@ package body menu is
          when 1 => selection_creer(arbre);
          when 2 => selection_ajouterParent(arbre);
          when 3 => selection_obtenirNombreAncetres(arbre);
-         when 4 => selection_afficherArbreGenealogique(arbre);
+         when 4 => selection_afficherArbreGenealogiqueNoeudDonne(arbre);
          when 5 => selection_supprimerNoeudEtAncetres(arbre);
          when 6 => selection_afficherEnsembleUnSeulParent(arbre);
          when 7 => selection_afficherEnsembleDeuxParents(arbre);
@@ -69,12 +64,21 @@ package body menu is
          when 10 => selection_afficherEnsembleAncetres(arbre);
          when 11 => selection_afficherEnsembleDescendantsGenerationUnique(arbre);
          when 12 => selection_afficherEnsembleDescendants(arbre);
+         when 13 => selection_afficherArbreGenealogique(arbre);
 
          when others => Put_Line("Choix inconnu.");
       end case;
+   exception
+      when arbre_genealogique.arbre_null =>
+         Put_Line("Une erreur est survenue, l'arbre va être réinitialisé.");
+         Skip_Line;
+         lancerArbreGenealogique;
+      when arbre_genealogique.element_absent =>
+         Put_Line("Aucun individu ne porte cet identifiant. Veuillez recommencer");
+         Skip_Line;
    end traitementSelection;
 
-   procedure selection_creer(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_creer(arbre : out arbre_genealogique.T_Arbre_Bin) is
    begin
       creer(arbre => arbre);
    end selection_creer;
@@ -90,75 +94,84 @@ package body menu is
 
       New_Line;
       Skip_Line;
-      Put("Si le parent que vous ajoutez est le père, entrez 1, sinon entrez 2 : ");
-      choix_parent := Integer'Value(Get_Line);
+      loop
+         Put("Si le parent que vous ajoutez est le père, entrez 1, sinon entrez 2 : ");
+         Get(choix_parent);
+         exit when choix_parent = 1 or choix_parent = 2;
+      end loop;
       parent_est_pere := (choix_parent = 1);
-
       ajouterParent(arbre => arbre, enfant => getIndividuIdentifiant, informations_parent => informations_parent, parentEstPere => parent_est_pere);
+   exception
+      when arbre_genealogique.emplacement_invalide =>
+         Put_Line("L'individu concerné possède déjà un parent de même type que celui que vous voulez lui attribuer. Veuillez recommencer");
+         Skip_Line;
    end selection_ajouterParent;
 
-   procedure selection_obtenirNombreAncetres(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_obtenirNombreAncetres(arbre : in arbre_genealogique.T_Arbre_Bin) is
    begin
       Put_Line("Nombre d'ancêtres de l'individu entré : " & Integer'Image(obtenirNombreAncetres(arbre => arbre, individu => getIndividuIdentifiant)));
    end selection_obtenirNombreAncetres;
 
 
-   procedure selection_afficherArbreGenealogique(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherArbreGenealogiqueNoeudDonne(arbre : in arbre_genealogique.T_Arbre_Bin) is
+      abr : arbre_genealogique.T_Arbre_Bin;
    begin
-      afficherArbreGenealogique(arbre => arbre);
-   end selection_afficherArbreGenealogique;
+      abr := arbre_genealogique.recherche(arbre => arbre, element => getIndividuIdentifiant, retourner_precedent => false);
+      afficherArbreGenealogique(arbre => abr);
+   end selection_afficherArbreGenealogiqueNoeudDonne;
 
    procedure selection_supprimerNoeudEtAncetres(arbre : in out arbre_genealogique.T_Arbre_Bin) is
    begin
       supprimerNoeudEtAncetres(arbre => arbre, individu => getIndividuIdentifiant);
    end selection_supprimerNoeudEtAncetres;
 
-   procedure selection_afficherEnsembleUnSeulParent(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleUnSeulParent(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleUnSeulParent(arbre => arbre);
    end selection_afficherEnsembleUnSeulParent;
 
-   procedure selection_afficherEnsembleDeuxParents(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleDeuxParents(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleDeuxParents(arbre => arbre);
    end selection_afficherEnsembleDeuxParents;
 
-   procedure selection_afficherEnsembleAucunParent(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleAucunParent(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleAucunParent(arbre => arbre);
    end selection_afficherEnsembleAucunParent;
 
-   procedure selection_afficherEnsembleAncetresGenerationUnique(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleAncetresGenerationUnique(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleAncetresGenerationUnique(arbre => arbre, individu => getIndividuIdentifiant, generation => getNombreGeneration);
    end selection_afficherEnsembleAncetresGenerationUnique;
 
-   procedure selection_afficherEnsembleAncetres(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleAncetres(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleAncetres(arbre => arbre, individu => getIndividuIdentifiant, generation => getNombreGeneration);
    end selection_afficherEnsembleAncetres;
 
-   procedure selection_afficherEnsembleDescendantsGenerationUnique(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleDescendantsGenerationUnique(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleDescendantsGenerationUnique(arbre => arbre, individu => getIndividuIdentifiant, generation => getNombreGeneration);
    end selection_afficherEnsembleDescendantsGenerationUnique;
 
-   procedure selection_afficherEnsembleDescendants(arbre : in out arbre_genealogique.T_Arbre_Bin) is
+   procedure selection_afficherEnsembleDescendants(arbre : in  arbre_genealogique.T_Arbre_Bin) is
    begin
       afficherEnsembleDescendants(arbre => arbre, individu => getIndividuIdentifiant, generation => getNombreGeneration);
    end selection_afficherEnsembleDescendants;
 
-
-
+   procedure selection_afficherArbreGenealogique(arbre : in arbre_genealogique.T_Arbre_Bin) is
+   begin
+      afficherArbreGenealogique(arbre => arbre);
+   end selection_afficherArbreGenealogique;
 
    function getIndividuIdentifiant return individu_int.T_Individu is
       id_enfant : Integer;
       enfant : individu_int.T_Individu;
    begin
-      New_Line;
       Skip_Line;
       Put("Entrez l'identifiant de l'individu de référence : ");
-      id_enfant := Integer'Value(Get_Line);
+      Get(id_enfant);
       enfant := individu_int.creerIndividu(identifiant => id_enfant);
       return enfant;
    end getIndividuIdentifiant;
@@ -166,10 +179,9 @@ package body menu is
    function getNombreGeneration return Integer is
       nombre_generation : Integer;
    begin
-      New_Line;
       Skip_Line;
       Put("Entrez le nombre de generations : ");
-      nombre_generation := Integer'Value(Get_Line);
+      Get(nombre_generation);
       return nombre_generation;
    end getNombreGeneration;
 

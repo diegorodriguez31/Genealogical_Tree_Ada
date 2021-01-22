@@ -1,4 +1,0 @@
-arbre_genealog.ads:11:47: subtype mark required in this context
-arbre_genealog.ads:11:47: found "Arbre_Bin" declared at arbre_bin.ads:8
-arbre_genealog.ads:11:65: "T_Individu" is not visible
-arbre_genealog.ads:11:65: non-visible declaration at p_individu.ads:17

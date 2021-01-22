@@ -16,9 +16,6 @@ package arbre_genealog is
    package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu, estEquivalent => estEquivalentIndividu);
    use arbre_genealogique;
 
-
-   individu_inexistant : exception;
-
    -- Semantique : Crée un arbre minimal coutenant le seul noeud racine, sans père ni mère
    -- Paramètres :
    --     arbre : IN OUT T_Arbre_Bin, Arbre crée
@@ -37,8 +34,7 @@ package arbre_genealog is
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre contient le parent ajouté
    -- Exceptions :
-   --    arbre_null, si l'arbre est null
-   --    individu_existant, si une personne considérée équivalente existe déjà
+   --    arbre_null, si l'arbre est null (généré par l'arbre binaire)
    procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; informations_parent : in T_Informations ; parentEstPere : in Boolean);
 
    -- Semantique : Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris).
@@ -48,8 +44,7 @@ package arbre_genealog is
    -- Pré-conditions : Néant
    -- Post-conditions : Le nombre d'ancêtres est renvoyé
    -- Exceptions :
-   --    arbre_null, si l'arbre est null
-   --    individu_absent, s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
+   --    arbre_null, si l'arbre est null (généré par l'arbre binaire)
    function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer;
 
    -- Sémantique : Afficher l'arbre généalogique à partir d'un noeud donné.
@@ -57,7 +52,8 @@ package arbre_genealog is
    --    arbre : IN T_Arbre_Bin, Arbre à afficher
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est affiché, ou un message indiquant que l'arbre est vide
-   -- Exceptions : Néant
+   -- Exceptions :
+   --    arbre_null, si l'arbre est null
    procedure afficherArbreGenealogique(arbre : in T_Arbre_Bin);
 
    -- Sémantique : Supprimer, pour un arbre, un noeud et ses ancêtres.
@@ -67,8 +63,8 @@ package arbre_genealog is
    -- Pré-conditions : Néant
    -- Post-conditions : Le noeud et ses ancêtres sont supprimés de l'arbre
    -- Exceptions :
-   --    arbre_null, si l'arbre est null
-   --    individu_absent, s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
+   --    arbre_null, si l'arbre est null (généré par l'arbre binaire)
+   --    element_absent, s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu(généré par l'arbre binaire)
    procedure supprimerNoeudEtAncetres(arbre : in out T_Arbre_Bin ; individu : in T_Individu);
 
    -- Sémantique : Obtenir l'ensemble des individus qui n'ont qu'un parent connu.
@@ -104,7 +100,6 @@ package arbre_genealog is
    -- Post-conditions : L'ensemble des ancêtres est affiché
    -- Exceptions :
    --    arbre_null, si l'arbre est null
-   --    individu_absent,  s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
    procedure afficherEnsembleAncetresGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
 
    -- Sémantique : Obtenir les ancêtres d'une génération donnée pour un noeud donné.
@@ -116,7 +111,6 @@ package arbre_genealog is
    -- Post-conditions : Les ancêtres de la génération donnée est affiché
    -- Exceptions :
    --    arbre_null, si l'arbre est null
-   --    individu_absent,  s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
    procedure afficherEnsembleAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
 
    -- Sémantique : Identifier les descendants d'une génération donnée pour un noeud donné.
@@ -128,7 +122,6 @@ package arbre_genealog is
    -- Post-conditions : Les descendants de la génération donnée est affiché
    -- Exceptions :
    --    arbre_null, si l'arbre est null
-   --    individu_absent,  s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
    procedure afficherEnsembleDescendantsGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
 
    -- Sémantique : Obtenir la succession de descendants d'une génération donnée pour un noeud donné
@@ -140,11 +133,7 @@ package arbre_genealog is
    -- Post-conditions : L'ensemble des descendants est affiché
    -- Exceptions :
    --    arbre_null, si l'arbre est null
-   --    individu_absent,  s'il n'existe pas dans l'arbre une personne considérée équivalente à l'individu
    procedure afficherEnsembleDescendants(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
-
-
-
 
 private
    compteur_identifiant : Integer; -- Un compteur permettant d'affecter un identifiant unique à chaque nouvelle individu ajouté à l'arbre.

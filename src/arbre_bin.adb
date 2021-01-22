@@ -30,8 +30,8 @@ package body Arbre_Bin is
       if estVide(arbre) then
          arbre :=  new T_Noeud'(nouvel_element, null, null);
       else
-         if recherche(arbre => arbre, element => nouvel_element, retourner_precedent => false) /= null then raise
-              element_existant;
+         if recherche(arbre => arbre, element => nouvel_element, retourner_precedent => false) /= null then
+            raise element_existant;
          else
             element_prec := recherche(arbre => arbre, element => element_precedent, retourner_precedent => false);
             if element_prec = null then
@@ -98,7 +98,7 @@ package body Arbre_Bin is
          raise arbre_null with "Modification d'un arbre vide impossible";
       else
          if  recherche(arbre => arbre, element => tar_element, retourner_precedent => False) /= null then
-            raise identifiant_incoherent with ("L'élément cible à une valeur deja existante dans l'arbre");
+            raise element_existant with ("L'élément cible à une valeur deja existante dans l'arbre");
          else
             noeud := recherche(arbre => arbre, element => src_element, retourner_precedent => false);
             if estVide(noeud) then

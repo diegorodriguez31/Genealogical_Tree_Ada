@@ -31,14 +31,27 @@ package body Arbre_Genealog is
       compteur_identifiant := compteur_identifiant + 1;
       parent := creerIndividu(identifiant => compteur_identifiant, informations => informations_parent);
       inserer(arbre => arbre, element_precedent => enfant, nouvel_element => parent, inserer_a_droite => parentEstPere);
+   exception
+      when element_existant =>
+         compteur_identifiant := compteur_identifiant + 1;
+         ajouterParent(arbre => arbre, enfant => enfant, informations_parent => informations_parent, parentEstPere => parentEstPere);
+      when null_identifiant =>
+         compteur_identifiant := 100;
+         parent := creerIndividu(identifiant => compteur_identifiant, informations => informations_parent);
+         inserer(arbre => arbre, element_precedent => enfant, nouvel_element => parent, inserer_a_droite => parentEstPere);
    end ajouterParent;
 
    -- Obtenir le nombre d'ancêtres connus d'un individu donné (lui compris).
    function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer is
       sous_arbre : T_Arbre_Bin;
    begin
-      sous_arbre := recherche(arbre => arbre, element => individu, retourner_precedent => false);
-      return taille(arbre => sous_arbre);
+      if estVide(arbre => arbre) then
+         raise arbre_null;
+      else
+
+         sous_arbre := recherche(arbre => arbre, element => individu, retourner_precedent => false);
+         return taille(arbre => sous_arbre);
+      end if;
    end;
 
    -- Supprimer, pour un arbre, un noeud et ses ancêtres.
@@ -53,6 +66,7 @@ package body Arbre_Genealog is
       if not estVide(arbre => arbre) then
          if estVide(getSousArbreDroit(arbre => arbre)) xor estVide(getSousArbreGauche(arbre)) then
             afficherIndividu(individu => getElement(arbre => arbre));
+            New_Line;
          else
             null;
          end if;
@@ -105,7 +119,7 @@ package body Arbre_Genealog is
    procedure afficherArbreGenealogique(arbre : in T_Arbre_Bin ; compteurGenerationRelative : in Integer)is
    begin
       if estVide(arbre) then
-         null;
+         raise arbre_null;
       else
          afficherIndividu(getElement(arbre));
          if estVide(getSousArbreGauche(arbre)) then
@@ -115,8 +129,8 @@ package body Arbre_Genealog is
             for i in 0..compteurGenerationRelative loop
                Put("    ");
             end loop;
-            Put("-- Père : ");
-            afficherArbreGenealogique(arbre => arbre, compteurGenerationRelative => compteurGenerationRelative+1);
+            Put("-- Mère : ");
+            afficherArbreGenealogique(arbre => getSousArbreGauche(arbre), compteurGenerationRelative => compteurGenerationRelative+1);
          end if;
          if estVide(getSousArbreDroit(arbre)) then
             null;
@@ -125,8 +139,8 @@ package body Arbre_Genealog is
             for i in 0..compteurGenerationRelative loop
                Put("    ");
             end loop;
-            Put("-- Mère : ");
-            afficherArbreGenealogique(arbre => arbre, compteurGenerationRelative => compteurGenerationRelative+1);
+            Put("-- Père : ");
+            afficherArbreGenealogique(arbre => getSousArbreDroit(arbre), compteurGenerationRelative => compteurGenerationRelative+1);
          end if;
       end if;
    end afficherArbreGenealogique;
@@ -136,11 +150,11 @@ package body Arbre_Genealog is
       abr : T_Arbre_Bin;
    begin
       if estVide(arbre) then
-         raise arbre_null with "Arbre null";
+         raise arbre_null;
       else
          abr := recherche(arbre => arbre, element =>  individu, retourner_precedent => false);
          if estVide(abr) then
-            raise individu_inexistant with "l'individu donné n'existe pas";
+            raise element_absent;
          else
             afficherEnsembleAncetres(arbre => abr, generation => generation, compteurGenerationRelative => 0);
          end if;
@@ -152,20 +166,20 @@ package body Arbre_Genealog is
       sous_arbre_gauche : T_Arbre_Bin;
       sous_arbre_droit : T_Arbre_Bin;
    begin
-      afficherIndividu(individu => getElement(arbre => arbre));
-      if compteurGenerationRelative < generation then
-         sous_arbre_gauche := getSousArbreGauche(arbre => arbre);
-         if not estVide(arbre =>  sous_arbre_gauche) then
-            afficherEnsembleAncetres(sous_arbre_gauche, generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
-         else
-            null;
-         end if;
-         sous_arbre_droit := getSousArbreGauche(arbre => arbre);
-         if not estVide(arbre =>  sous_arbre_droit) then
-            afficherEnsembleAncetres(sous_arbre_droit,  generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
-         else
-            null;
-         end if;
+      if generation <= compteurGenerationRelative then
+         afficherIndividu(individu => getElement(arbre => arbre));
+      else
+         null;
+      end if;
+      sous_arbre_gauche := getSousArbreGauche(arbre => arbre);
+      if not estVide(arbre =>  sous_arbre_gauche) then
+         afficherEnsembleAncetres(sous_arbre_gauche, generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
+      else
+         null;
+      end if;
+      sous_arbre_droit := getSousArbreDroit(arbre => arbre);
+      if not estVide(arbre =>  sous_arbre_droit) then
+         afficherEnsembleAncetres(sous_arbre_droit,  generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
       else
          null;
       end if;
@@ -176,11 +190,11 @@ package body Arbre_Genealog is
       abr : T_Arbre_Bin;
    begin
       if estVide(arbre) then
-         raise arbre_null with "Arbre null";
+         raise arbre_null;
       else
          abr := recherche(arbre => arbre, element =>  individu, retourner_precedent => false);
          if estVide(abr) then
-            raise individu_inexistant with "l'individu donné n'existe pas";
+            raise element_absent with "l'individu donné n'existe pas";
          else
             afficherEnsembleAncetresGenerationUnique(arbre => abr, generation => generation, compteurGenerationRelative => 0);
          end if;
@@ -193,18 +207,18 @@ package body Arbre_Genealog is
       sous_arbre_droit : T_Arbre_Bin;
    begin
       if generation = compteurGenerationRelative then
-        afficherIndividu(individu => getElement(arbre => arbre));
+         afficherIndividu(individu => getElement(arbre => arbre));
       else
          if compteurGenerationRelative < generation then
             sous_arbre_gauche := getSousArbreGauche(arbre => arbre);
             if not estVide(arbre =>  sous_arbre_gauche) then
-               afficherEnsembleAncetres(sous_arbre_gauche, generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
+               afficherEnsembleAncetresGenerationUnique(sous_arbre_gauche, generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
             else
                null;
             end if;
-            sous_arbre_droit := getSousArbreGauche(arbre => arbre);
+            sous_arbre_droit := getSousArbreDroit(arbre => arbre);
             if not estVide(arbre =>  sous_arbre_droit) then
-               afficherEnsembleAncetres(sous_arbre_droit,  generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
+               afficherEnsembleAncetresGenerationUnique(sous_arbre_droit,  generation => generation, compteurGenerationRelative => compteurGenerationRelative +1);
             else
                null;
             end if;
@@ -218,11 +232,15 @@ package body Arbre_Genealog is
    procedure afficherEnsembleDescendantsGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer) is
       individu_recherche : T_Arbre_Bin;
    begin
-      individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => false);
-      for generation_parcourue in 1..generation loop
-         individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
-      end loop;
-      afficherIndividu(getElement(individu_recherche));
+      if estVide(arbre) then
+         raise arbre_null;
+      else
+         individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => false);
+         for generation_parcourue in 1..generation loop
+            individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
+         end loop;
+         afficherIndividu(getElement(individu_recherche));
+      end if;
    end;
 
    -- Obtenir la succession de descendants d'une génération donnée pour un noeud donné
@@ -230,16 +248,22 @@ package body Arbre_Genealog is
       generation_parcourue : Integer := 0;
       individu_recherche : T_Arbre_Bin;
    begin
-      if estVide(arbre => arbre) then
+      if estVide(arbre) then
          raise arbre_null;
       else
          individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => false);
          if estVide(individu_recherche) then
-            raise individu_inexistant;
+            raise element_absent;
          else
+            individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => true);
             while generation_parcourue <= generation and not  estVide(individu_recherche) loop
                afficherIndividu(getElement(individu_recherche));
-               individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
+               begin
+                  individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
+               exception
+                     -- lorsque la racine de l'arbre est atteinte, rechercher l'element précédent génère une exception
+                  when element_absent => null;
+               end;
             end loop;
          end if;
       end if;

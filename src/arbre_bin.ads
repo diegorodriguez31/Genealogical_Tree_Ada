@@ -18,7 +18,6 @@ package Arbre_Bin is
    element_absent : exception;
    element_existant : exception;
    emplacement_invalide : exception;
-   identifiant_incoherent : exception;
 
    -- Semantique : Initialiser l'arbre binaire
    -- Paramètres : Néant
@@ -58,7 +57,7 @@ package Arbre_Bin is
    -- Exceptions :
    --   element_absent, s'il n'existe pas d'element de même identifiant que element precedent
    --   element_existant, s'il existe déjà un élément de même identifiant que nouvel_element
-   --   emplacement invalide, s'il existe déjà un element là où nouvel_element doit être inséré
+   --   emplacement_invalide, s'il existe déjà un element là où nouvel_element doit être inséré
    procedure inserer (arbre : in out T_Arbre_Bin ; element_precedent : in T_Element; nouvel_element : in T_Element; inserer_a_droite : in Boolean);
 
    -- Semantique :  Recherche dans l'element dans l'arbre
@@ -81,7 +80,7 @@ package Arbre_Bin is
    -- Post-conditions : l'element src donnée à été remplacée par la donnée tar_donnée
    -- Exceptions :
    --   null_exception si l'arbe est vide
-   --   valeur_absente si la donnée src_donnee est absente
+   --   element_absent si la donnée src_donnee est absente
    procedure modifier (arbre : in out T_Arbre_Bin ; src_element : in T_Element; tar_element : in T_Element);
 
    -- Semantique :  Supprimer la donnée et le noeuds la suivant dans l'arbre
@@ -92,7 +91,7 @@ package Arbre_Bin is
    -- Post-conditions : l'élément à été supprimé de l'arbre
    -- Exceptions :
    --   arbre_null si l'arbe est vide
-   --   valeur_absente si la donnée src_donnee est absente
+   --   element_absent si la donnée src_donnee est absente
    procedure supprimer (arbre : in out T_Arbre_Bin; element : in T_Element);
 
    --  Sematique : Retourne l'element du premier noeud de l'arbre donné en paramètre

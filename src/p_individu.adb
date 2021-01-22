@@ -13,12 +13,9 @@ package body P_Individu is
       Skip_Line;
       Put("Entrez le nom : ");
       nom := To_Unbounded_String(Get_Line);
-
-      New_Line;
-      Skip_Line;
-      Put("Entrez le prenom : ");
+      --  Skip_Line;
+      Put("Entrezle prenom : ");
       prenom := To_Unbounded_String(Get_Line);
-
       New_Line;
 
       informations := new T_Infos;
@@ -63,10 +60,10 @@ package body P_Individu is
    begin
       afficherIdentifiant(individu.identifiant);
       if not (individu.informations = null) then
-         Put(" : ");
-         Put(individu.informations.all.nom);
+         Put(" ; ");
+         Put("Nom : " & individu.informations.all.nom);
          Put(", ");
-         Put(individu.informations.all.prenom);
+         Put("Prenom : " & individu.informations.all.prenom);
       else
          null;
       end if;

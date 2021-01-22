@@ -17,7 +17,6 @@ package P_Individu is
    type T_Individu is private;
 
    null_identifiant : exception;
-   null_individu : exception;
 
    -- Sémantique : Renvoie un individu avec uniquement un identifiant et les informations qui lui correspondent
    -- Paramètres :
@@ -36,7 +35,8 @@ package P_Individu is
    -- Pré-conditions : Néant
    -- Post-conditions : L'individu est créé avec l'identifiant et les informations donnés en paramètre
    -- Retourne : T_Individu, l'individu
-   -- Exceptions : Néant
+   -- Exceptions :
+   --       null_identifiant, si lidentifiant donné est null
    function creerIndividu(identifiant : in T_Identifiant ; informations : in T_Informations) return T_Individu;
 
    -- Sémantique : Renvoie un individu avec uniquement un identifiant  qui lui correspond
@@ -45,7 +45,8 @@ package P_Individu is
    -- Pré-conditions : Néant
    -- Post-conditions : L'individu est créé avec l'identifiant et les informations donnés en paramètre
    -- Retourne : T_Individu, l'individu
-   -- Exceptions : Néant
+   -- Exceptions :
+   --       null_identifiant, si lidentifiant donné est null
    function creerIndividu(identifiant : in T_Identifiant) return T_Individu;
 
    -- Sémantique : Vérifie si deux individus sont égaux
