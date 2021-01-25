@@ -10,8 +10,15 @@ package body menu is
       loop
          loop
             afficherSelection;
-            Get(selection);
-            exit when selection >= 0 and selection < 20;
+            begin
+               Get(selection);
+            exception
+               when DATA_ERROR =>
+                  Put_Line("Erreur de selection");
+                  selection := -1;
+                  Skip_Line;
+            end;
+            exit when selection >= 0 and selection < 14;
          end loop;
          exit when selection = 0;
          traitementSelection(selection, arbre);

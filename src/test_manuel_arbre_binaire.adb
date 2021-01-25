@@ -1,15 +1,23 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Arbre_Bin;
 
 procedure test_manuel_arbre_binaire is
 
-   procedure afficherEntier(entier : in Integer) is
-   begin
-      Put(Integer'Image(entier));
-   end afficherEntier;
-
-   package Arbre_Binaire is new Arbre_Bin(T_Element => Integer, afficherElement => afficherEntier, estEquivalent => "=");
+   package Arbre_Binaire is new Arbre_Bin(T_Element => Integer, estEquivalent => "=");
    use Arbre_Binaire;
+
+
+   procedure afficher( arbre : in T_Arbre_Bin)is
+   begin
+      if not estVide(arbre => arbre) then
+         Put(Integer'Image(getElement(arbre)));
+         afficher(getSousArbreGauche(arbre => arbre));
+         afficher(getSousArbreDroit(arbre => arbre));
+      else
+         null;
+      end if;
+   end;
 
    a, b : T_Arbre_Bin;
 begin
@@ -18,24 +26,35 @@ begin
    if estVide(a) then
       afficher(a); New_Line;
       Put(Integer'Image(taille(a))); New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("0");
    end if;New_Line;
 
    inserer(arbre => a, element_precedent => 0, nouvel_element => 5, inserer_a_droite => true);
    if not estVide(a) then
       afficher(a); New_Line;
       Put(Integer'Image(taille(a))); New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5");
+      Put_Line("1");
    end if;New_Line;
 
    inserer(arbre => a, element_precedent => 5, nouvel_element => 4, inserer_a_droite => false);
    if not estVide(a) then
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5 4");
+      Put_Line("2");
    end if;New_Line;
 
    inserer(arbre => a, element_precedent => 5, nouvel_element => 12, inserer_a_droite => true);
    if not estVide(a) then
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5 4 12");
+      Put_Line("3");
    end if;New_Line;
 
    b := recherche(arbre => a, element => 4, retourner_precedent => false);
@@ -44,6 +63,11 @@ begin
       Put(Integer'Image(taille(b)));New_Line;
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("4");
+      Put_Line("1");
+      Put_Line("5 4 12");
+      Put_Line("3");
    end if;New_Line;
 
    b := recherche(arbre => a, element => 4, retourner_precedent => true);
@@ -52,15 +76,24 @@ begin
       Put(Integer'Image(taille(b)));New_Line;
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5 4 12");
+      Put_Line("3");
+      Put_Line("5 4 12");
+      Put_Line("3");
    end if;New_Line;
 
-   Put_Line("Ligne 52");
    b := recherche(arbre => a, element => 5, retourner_precedent => false);
    if not estVide(b) then
       afficher(b); New_Line;
       Put(Integer'Image(taille(b)));New_Line;
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5 4 12");
+      Put_Line("3");
+      Put_Line("5 4 12");
+      Put_Line("3");
    else
       Put_Line("Valeur non trouvée");
    end if;New_Line;
@@ -87,11 +120,19 @@ begin
    if not estVide(a) then
       afficher(a); New_Line;
       Put(Integer'Image(taille(a)));New_Line;
+      Put_line("Resultat Attendu : ");
+      Put_Line("5 8 12");
+      Put_Line("3");
    end if;New_Line;
 
    inserer(arbre => a, element_precedent => 8, nouvel_element => 88,inserer_a_droite => true);
    afficher(a); New_Line;
-   Put_Line(Integer'Image(taille(a)));New_Line;
+   Put_Line(Integer'Image(taille(a)));
+   Put_line("Resultat Attendu : ");
+   Put_Line("5 8 88 12");
+   Put_Line("4");
+
+   New_Line;
 
    begin
       inserer(arbre => a, element_precedent => 8, nouvel_element => 88,inserer_a_droite => false);
@@ -109,7 +150,11 @@ begin
 
    supprimer(arbre => a, element => 8);
    afficher(a); New_Line;
-   Put_Line(Integer'Image(taille(a)));New_Line;
+   Put_Line(Integer'Image(taille(a)));
+   Put_line("Resultat Attendu : ");
+   Put_Line("5 12");
+   Put_Line("2");
+   New_Line;
 
    begin
       supprimer(arbre => a, element => 10);

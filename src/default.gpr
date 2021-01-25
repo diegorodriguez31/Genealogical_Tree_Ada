@@ -1,10 +1,10 @@
 project Default is
 
+   for Main use ("main.adb", "test_manuel_arbre_binaire.adb");
+
    package Compiler is
       for Switches ("ada") use ("-g", "-O2");
    end Compiler;
-
-   for Main use ("main.adb");
 
 end Default;
 
