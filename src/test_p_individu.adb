@@ -24,7 +24,7 @@ procedure test_p_individu is
    inf_1, inf_2 : T_Informations;
    nom_1, prenom_1, nom_2, prenom_2 : Unbounded_String;
 begin
-   Put_Line("Debut du test");
+   Put_Line("Debut du test de p_individu");
    -- Du fait de sa nature, la fonction // function creerInformations return T_Informations; \\ ne sera pas testée dans ce programme de test
    -- Cependant, l'utilisation de la méthode Get est vérifiée a chaque execution du programme
 
@@ -32,8 +32,8 @@ begin
    nom_1 := To_Unbounded_String("DUPOND");
    prenom_1 := To_Unbounded_String("Charles");
    inf_1 := creerInformations(nom => nom_1, prenom => prenom_1);
-   pragma Assert(nom_1 = getNom(informations => inf_1));
-   pragma Assert(prenom_1 = getPrenom(informations => inf_1));
+   pragma Assert(To_Unbounded_String("DUPOND") = getNom(informations => inf_1));
+   pragma Assert(To_Unbounded_String("Charles") = getPrenom(informations => inf_1));
 
    nom_2 := To_Unbounded_String("");
    prenom_2 := To_Unbounded_String("");
@@ -138,9 +138,10 @@ begin
    pragma Assert(prenom_1 = prenom_2);
 
    -- Test de function getIdentifiant(individu : in T_Individu) return T_Identifiant;
-   --Deja testée
+   -- Deja testé dans creerIndividu
    -- Test de function getInformations(individu : in T_Individu) return T_Informations;
+   -- Deja testé dans creerIndividu
 
 
-   Put_Line("Fin du test");
+   Put_Line("Fin du test de p_individu");
 end test_p_individu;

@@ -4,9 +4,11 @@ package body menu is
    procedure lancerArbreGenealogique is
       arbre : arbre_genealogique.T_Arbre_Bin;
       selection : Integer;
+      informations_individu_racine : individu_int.T_Informations;
    begin
       Put_Line("Bievenue. Afin de commencer il vous faut entrer la personne de dernière generation dans l'arbre, les individus de génération antérieure pourront être ajoutés");
-      creer(arbre => arbre);
+      informations_individu_racine := individu_int.creerInformations;
+      creer(arbre => arbre, informations_individu => informations_individu_racine);
       loop
          loop
             afficherSelection;
@@ -86,8 +88,10 @@ package body menu is
    end traitementSelection;
 
    procedure selection_creer(arbre : out arbre_genealogique.T_Arbre_Bin) is
+      informations_individu : individu_int.T_Informations;
    begin
-      creer(arbre => arbre);
+      informations_individu := individu_int.creerInformations;
+      creer(arbre => arbre, informations_individu => informations_individu);
    end selection_creer;
 
    procedure selection_ajouterParent(arbre : in out arbre_genealogique.T_Arbre_Bin) is

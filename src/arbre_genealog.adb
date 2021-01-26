@@ -13,13 +13,11 @@ package body Arbre_Genealog is
    end nullIdendifiant;
 
    -- Créer un arbre minimal coutenant le seul noeud racine, sans père ni mère
-   procedure creer(arbre : in out T_Arbre_Bin) is
+   procedure creer(arbre : in out T_Arbre_Bin ; informations_individu : in T_Informations) is
       individu : T_Individu;
-      informations : T_Informations;
    begin
       compteur_identifiant := 1;
-      informations := creerInformations;
-      individu := creerIndividu(identifiant => compteur_identifiant, informations => informations);
+      individu := creerIndividu(identifiant => compteur_identifiant, informations => informations_individu);
       initialiser(arbre => arbre);
       inserer(arbre => arbre, element_precedent => individu, nouvel_element => individu, inserer_a_droite => true);
    end creer;
@@ -83,6 +81,7 @@ package body Arbre_Genealog is
       if not estVide(arbre => arbre) then
          if not estVide(getSousArbreDroit(arbre => arbre)) and not estVide(getSousArbreGauche(arbre)) then
             afficherIndividu(individu => getElement(arbre => arbre));
+            New_Line;
          else
             null;
          end if;
@@ -99,6 +98,7 @@ package body Arbre_Genealog is
       if not estVide(arbre => arbre) then
          if estVide(getSousArbreDroit(arbre => arbre)) and estVide(getSousArbreGauche(arbre)) then
             afficherIndividu(individu => getElement(arbre => arbre));
+            New_Line;
          else
             null;
          end if;
@@ -129,7 +129,7 @@ package body Arbre_Genealog is
             for i in 0..compteurGenerationRelative loop
                Put("    ");
             end loop;
-            Put("-- Mère : ");
+            Put("-- Mere : ");
             afficherArbreGenealogique(arbre => getSousArbreGauche(arbre), compteurGenerationRelative => compteurGenerationRelative+1);
          end if;
          if estVide(getSousArbreDroit(arbre)) then
@@ -139,7 +139,7 @@ package body Arbre_Genealog is
             for i in 0..compteurGenerationRelative loop
                Put("    ");
             end loop;
-            Put("-- Père : ");
+            Put("-- Pere : ");
             afficherArbreGenealogique(arbre => getSousArbreDroit(arbre), compteurGenerationRelative => compteurGenerationRelative+1);
          end if;
       end if;
@@ -168,6 +168,7 @@ package body Arbre_Genealog is
    begin
       if generation <= compteurGenerationRelative then
          afficherIndividu(individu => getElement(arbre => arbre));
+         New_Line;
       else
          null;
       end if;
@@ -208,6 +209,7 @@ package body Arbre_Genealog is
    begin
       if generation = compteurGenerationRelative then
          afficherIndividu(individu => getElement(arbre => arbre));
+         New_Line;
       else
          if compteurGenerationRelative < generation then
             sous_arbre_gauche := getSousArbreGauche(arbre => arbre);
@@ -240,6 +242,7 @@ package body Arbre_Genealog is
             individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
          end loop;
          afficherIndividu(getElement(individu_recherche));
+         New_Line;
       end if;
    end;
 
@@ -259,6 +262,7 @@ package body Arbre_Genealog is
             while generation_parcourue <= generation and not  estVide(individu_recherche) loop
                generation_parcourue := generation_parcourue +1;
                afficherIndividu(getElement(individu_recherche));
+               New_Line;
                begin
                   individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
                exception

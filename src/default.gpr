@@ -1,6 +1,6 @@
 project Default is
 
-   for Main use ("main.adb", "test_manuel_arbre_binaire.adb", "test_p_individu.adb");
+   for Main use ("main.adb", "test_arbre_genealog.adb", "test_manuel_arbre_binaire.adb", "test_p_individu.adb");
 
    package Compiler is
       for Switches ("ada") use ("-g", "-O2");

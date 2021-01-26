@@ -19,11 +19,11 @@ package arbre_genealog is
    -- Semantique : Crée un arbre minimal coutenant le seul noeud racine, sans père ni mère
    -- Paramètres :
    --     arbre : IN OUT T_Arbre_Bin, Arbre crée
-   --     individu : IN T_Individu, Individu ajouté dans l'arbre lors de sa création
+   --     informations_individu : IN T_Individu, Individu ajouté dans l'arbre lors de sa création
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Exceptions : Néant
-   procedure creer(arbre : in out T_Arbre_Bin);
+   procedure creer(arbre : in out T_Arbre_Bin ; informations_individu : in T_Informations);
 
    -- Semantique : Ajoute un parent (mère ou père) à un noeud donné
    -- Paramètres :
