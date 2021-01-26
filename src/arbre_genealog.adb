@@ -257,6 +257,7 @@ package body Arbre_Genealog is
          else
             individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => true);
             while generation_parcourue <= generation and not  estVide(individu_recherche) loop
+               generation_parcourue := generation_parcourue +1;
                afficherIndividu(getElement(individu_recherche));
                begin
                   individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);

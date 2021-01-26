@@ -68,7 +68,8 @@ package Arbre_Bin is
    -- Pré-conditions : Néant
    -- Post-conditions : L'arbre est inchangé
    -- Retourne : l'element recherché ou l'element précedent selon le flag retourner_precedent. null si l'element n'as pas été trouvé.
-   -- Exceptions : Néant.
+   -- Exceptions :
+   --  element_absent si l'element recherché n'est pas présent dans l'arbre
    function recherche (arbre : T_Arbre_Bin; element : in T_Element; retourner_precedent : in Boolean) return T_Arbre_Bin;
 
    -- Semantique :  Modifier l'element dans l'arbre

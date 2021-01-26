@@ -17,11 +17,21 @@ package P_Individu is
    type T_Individu is private;
 
    null_identifiant : exception;
+   null_informations : exception;
 
    -- Sémantique : Renvoie un individu avec uniquement un identifiant et les informations qui lui correspondent
    -- Paramètres :
    --   nom : IN Unbounded_String, nom de l'individu
    --   prenom : IN Unbounded_String, nom de l'individu
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : T_Informations, regroupant les informations données en paramètre
+   -- Exceptions : Néant
+   function creerInformations(nom : in Unbounded_String ; prenom : in Unbounded_String) return T_Informations;
+
+   -- Sémantique : Renvoie un individu avec uniquement un identifiant et les informations qui lui correspondent
+   -- Une surcharge de la fonction permettant à l'utilisateur de saisir les informations
+   -- Paramètres : Néant
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Retourne : T_Informations, regroupant les informations données en paramètre
@@ -59,13 +69,39 @@ package P_Individu is
    -- Exceptions : Néant
    function estEquivalentIndividu(individu_1 : in T_Individu ; individu_2 : in T_Individu) return Boolean;
 
-   -- Sémantique : Affiche les informations d'un individu
+   -- Sémantique : Affiche les informations et l'identifiant d'un individu
    -- Paramètres :
    --   individu : IN T_Individu, l'individu à afficher
    -- Pré-conditions : Néant
    -- Post-conditions : L'individu est affiché
    -- Exceptions : Néant
    procedure afficherIndividu(individu : in T_Individu);
+
+   -- Sémantique : Affiche les informations d'un individu
+   -- Paramètres :
+   --   individu : IN T_informations, les informations à afficher
+   -- Pré-conditions : Néant
+   -- Post-conditions : Les informations sont affichées
+   -- Exceptions : Néant
+   procedure afficherInformations(informations : in T_Informations);
+
+   -- Sémantique : retourne le nom de l'individu
+   -- Paramètres :
+   --   individu : IN T_informations, les informations à afficher
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : Unbounded_String, le nom présent dans les informations
+   -- Exceptions : Néant
+   function getNom(informations : in T_Informations) return Unbounded_String;
+
+   -- Sémantique : retourne le prenom de l'individu
+   -- Paramètres :
+   --   individu : IN T_informations, les informations à afficher
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : Unbounded_String, le prenom présent dans les informations
+   -- Exceptions : Néant
+   function getPrenom(informations : in T_Informations) return Unbounded_String;
 
 private
 

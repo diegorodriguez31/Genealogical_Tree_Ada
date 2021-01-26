@@ -81,7 +81,7 @@ package body menu is
          Skip_Line;
          lancerArbreGenealogique;
       when arbre_genealogique.element_absent =>
-         Put_Line("Aucun individu ne porte cet identifiant. Veuillez recommencer");
+         Put_Line("Aucun individu ne porte cet identifiant ou la generation demandée ne corresponds à aucun individu. Veuillez recommencer");
          Skip_Line;
    end traitementSelection;
 

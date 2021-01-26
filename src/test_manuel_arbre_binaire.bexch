@@ -1,0 +1,20 @@
+[GENERATED OBJECT FILE]
+b__test_manuel_arbre_binaire.o
+[PROJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\default.gpr
+20210125094616 3f634f41a7cb9d3d9097568536c99507
+[BOUND OBJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\arbre_bin.o
+D:\Travail\GNAT_GPS\Git_Project\src\test_manuel_arbre_binaire.o
+[GENERATED SOURCE FILES]
+b__test_manuel_arbre_binaire.ads
+b__test_manuel_arbre_binaire.adb
+b__test_manuel_arbre_binaire.ali
+[RESULTING OPTIONS]
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LC:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/
+-static
+-static-libgcc
+C:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/libgnat.a
+-Wl,--stack=0x2000000

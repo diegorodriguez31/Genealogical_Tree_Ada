@@ -1,0 +1,23 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\default.gpr
+20210125094616 3f634f41a7cb9d3d9097568536c99507
+[BOUND OBJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\arbre_bin.o
+D:\Travail\GNAT_GPS\Git_Project\src\p_individu.o
+D:\Travail\GNAT_GPS\Git_Project\src\arbre_genealog.o
+D:\Travail\GNAT_GPS\Git_Project\src\menu.o
+D:\Travail\GNAT_GPS\Git_Project\src\main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LC:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/
+-static
+-static-libgcc
+C:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/libgnat.a
+-Wl,--stack=0x2000000

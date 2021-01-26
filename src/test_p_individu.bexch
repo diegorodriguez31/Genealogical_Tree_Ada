@@ -1,0 +1,20 @@
+[GENERATED OBJECT FILE]
+b__test_p_individu.o
+[PROJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\default.gpr
+20210125105306 108ed26e67a5bfab454dcac744c28959
+[BOUND OBJECT FILES]
+D:\Travail\GNAT_GPS\Git_Project\src\p_individu.o
+D:\Travail\GNAT_GPS\Git_Project\src\test_p_individu.o
+[GENERATED SOURCE FILES]
+b__test_p_individu.ads
+b__test_p_individu.adb
+b__test_p_individu.ali
+[RESULTING OPTIONS]
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LD:\Travail\GNAT_GPS\Git_Project\src\
+-LC:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/
+-static
+-static-libgcc
+C:/gnat/2020/lib/gcc/x86_64-pc-mingw32/9.3.1/adalib/libgnat.a
+-Wl,--stack=0x2000000
