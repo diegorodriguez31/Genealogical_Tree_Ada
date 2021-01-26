@@ -87,7 +87,7 @@ package P_Individu is
 
    -- Sémantique : retourne le nom de l'individu
    -- Paramètres :
-   --   individu : IN T_informations, les informations à afficher
+   --   informations : IN T_informations, les informations à traiter
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Retourne : Unbounded_String, le nom présent dans les informations
@@ -96,12 +96,30 @@ package P_Individu is
 
    -- Sémantique : retourne le prenom de l'individu
    -- Paramètres :
-   --   individu : IN T_informations, les informations à afficher
+   --   informations : IN T_informations, les informations à traiter
    -- Pré-conditions : Néant
    -- Post-conditions : Néant
    -- Retourne : Unbounded_String, le prenom présent dans les informations
    -- Exceptions : Néant
    function getPrenom(informations : in T_Informations) return Unbounded_String;
+
+   -- Sémantique : retourne l'identifiant de l'individu
+   -- Paramètres :
+   --   individu : IN T_Individu, les informations à traiter
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : T_Identifiant, l'identifiant de l'individu
+   -- Exceptions : Néant
+   function getIdentifiant(individu : in T_Individu) return T_Identifiant;
+
+   -- Sémantique : retourne les informations de l'individu
+   -- Paramètres :
+   --   individu : IN T_Individu, les informations à traiter
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : T_Informations, les informations de l'individu
+   -- Exceptions : Néant
+   function getInformations(individu : in T_Individu) return T_Informations;
 
 private
 

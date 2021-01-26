@@ -67,8 +67,9 @@ package body P_Individu is
    procedure afficherIndividu(individu : in T_Individu) is
    begin
       afficherIdentifiant(individu.identifiant);
-      Put(" ; ");
+      Put(" ( ");
       afficherInformations(informations => individu.informations);
+      Put(" ) ");
    end afficherIndividu;
 
    -- Affiche les informations d'un individu
@@ -93,7 +94,6 @@ package body P_Individu is
       end if;
    end getNom;
 
-
    -- Retourne le nom de l'individu
    function getPrenom(informations : in T_Informations) return Unbounded_String is
    begin
@@ -103,5 +103,18 @@ package body P_Individu is
          return informations.all.prenom;
       end if;
    end getPrenom;
+
+   -- Retourne l'identifiant de l'individu
+   function getIdentifiant(individu : in T_Individu) return T_Identifiant is
+   begin
+         return individu.identifiant;
+   end getIdentifiant;
+
+   -- Retourne les informations de l'individu
+   function getInformations(individu : in T_Individu) return T_Informations is
+   begin
+         return individu.informations;
+   end getInformations;
+
 
 end P_Individu;
