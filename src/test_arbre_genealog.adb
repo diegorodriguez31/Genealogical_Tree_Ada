@@ -9,11 +9,13 @@ procedure test_arbre_genealog is
    nom_individu : Unbounded_String;
    prenom_individu : Unbounded_String;
    ind_1 : individu_int.T_Individu;
+   nb_ancetres : Integer;
 begin
    Put_Line("Debut du test de arbre_genealog");
 
-
-   ------------------------- Test de procedure creer(arbre : in out T_Arbre_Bin); -----------------------------------------------
+   ---------------------------------------------------------------------
+   -- Test de procedure creer(arbre : in out T_Arbre_Bin);
+   ---------------------------------------------------------------------
 
    -- cas nominal
    nom_individu := To_Unbounded_String("CONTANDIN");
@@ -34,7 +36,9 @@ begin
    pragma Assert(individu_int.getNom(individu_int.getInformations(individu => arbre_genealogique.getElement(arbre => arbre))) = To_Unbounded_String("PAGNOL"));
 
 
+   ---------------------------------------------------------------------
    --------  Test de procedure ajouterParent(arbre : in out T_Arbre_Bin ; enfant : in T_Individu ; informations_parent : in T_Informations ; parentEstPere : in Boolean); ---------------
+   ---------------------------------------------------------------------
 
    -- cas nominal père
    ind_1 := individu_int.creerIndividu(identifiant => 1);
@@ -75,7 +79,9 @@ begin
          pragma Assert(True);
    end;
 
-   ---------- Test de function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer; -----------------
+   ---------------------------------------------------------------------
+   --  Test de function obtenirNombreAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu) return Integer; -----------------
+   ---------------------------------------------------------------------
    ind_1 := individu_int.creerIndividu(identifiant => 3);
    nom_individu := To_Unbounded_String("DE BEAUVOIR");
    prenom_individu := To_Unbounded_String("Simone");
@@ -94,7 +100,9 @@ begin
    ind_1 := individu_int.creerIndividu(identifiant => 7);
    pragma Assert(obtenirNombreAncetres(arbre => arbre, individu => ind_1) = 0);
 
+   ---------------------------------------------------------------------
    -- Ajout de valeurs pour la suite du programme de test
+   ---------------------------------------------------------------------
 
    ind_1 := individu_int.creerIndividu(identifiant => 6);
    nom_individu := To_Unbounded_String("DE BEAUVOIR");
@@ -126,8 +134,9 @@ begin
    informations_individu := individu_int.creerInformations(nom => nom_individu, prenom => prenom_individu);
    ajouterParent(arbre => arbre, enfant => ind_1, informations_parent => informations_individu, parentEstPere => True);
 
-   --     procedure afficherArbreGenealogique(arbre : in T_Arbre_Bin);
-
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherArbreGenealogique(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
    New_Line;New_Line;
    afficherArbreGenealogique(arbre => arbre);New_Line;New_Line;
    Put_Line("Resultat attendu : ");
@@ -150,7 +159,9 @@ begin
          pragma Assert(True);
    end;
 
-   --     procedure afficherEnsembleUnSeulParent(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleUnSeulParent(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
    New_Line;
    afficherEnsembleUnSeulParent(arbre => arbre);
    Put_Line("Resultat attendu : ");
@@ -160,7 +171,9 @@ begin
    Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
    New_Line;New_Line;
 
-   --     procedure afficherEnsembleDeuxParents(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleDeuxParents(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
    New_Line;
    afficherEnsembleDeuxParents(arbre => arbre);
    Put_Line("Resultat attendu : ");
@@ -168,7 +181,9 @@ begin
    Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone )  ");
    New_Line;New_Line;
 
-   --     procedure afficherEnsembleAucunParent(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleAucunParent(arbre : in T_Arbre_Bin);
+   ---------------------------------------------------------------------
    New_Line;
    afficherEnsembleAucunParent(arbre => arbre);
    Put_Line("Resultat attendu : ");
@@ -177,14 +192,238 @@ begin
    Put_Line(" 11 ( Nom : Moulin, Prenom : Jean )  ");
    New_Line;New_Line;
 
-   --     procedure afficherEnsembleAncetresGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleAncetresGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   afficherEnsembleAncetresGenerationUnique(arbre => arbre,individu => ind_1, generation => 2);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   New_Line;New_Line;
 
-   --     procedure afficherEnsembleAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ind_1 := individu_int.creerIndividu(identifiant => 1);
+   afficherEnsembleAncetresGenerationUnique(arbre => arbre,individu => ind_1, generation => 3);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line(" 10 ( Nom : VEIL, Prenom : Simone ) ");
 
-   --     procedure afficherEnsembleDescendantsGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ind_1 := individu_int.creerIndividu(identifiant => 12);
+   begin
+      afficherEnsembleAncetresGenerationUnique(arbre => arbre,individu => ind_1, generation => 10);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
 
-   --     procedure afficherEnsembleDescendants(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleAncetres(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   afficherEnsembleAncetres(arbre => arbre,individu => ind_1, generation => 2);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 11 ( Nom : Moulin, Prenom : Jean ) ");
+   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   New_Line;New_Line;
 
-   --     procedure supprimerNoeudEtAncetres(arbre : in out T_Arbre_Bin ; individu : in T_Individu);
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   afficherEnsembleAncetres(arbre => arbre,individu => ind_1, generation => 0);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 11 ( Nom : Moulin, Prenom : Jean ) ");
+   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   New_Line;New_Line;
+
+   ind_1 := individu_int.creerIndividu(identifiant => 12);
+   begin
+      afficherEnsembleAncetres(arbre => arbre,individu => ind_1, generation => 0);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
+
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleDescendantsGenerationUnique(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 1);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel ) ");
+   New_Line;New_Line;
+
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 8);
+   afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 2);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   New_Line;New_Line;
+
+   ind_1 := individu_int.creerIndividu(identifiant => 12);
+   begin
+      afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 0);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
+
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   begin
+      afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 10);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
+
+   ---------------------------------------------------------------------
+   -- Test de procedure afficherEnsembleDescendants(arbre : in T_Arbre_Bin ; individu : in T_Individu ; generation : in Integer);
+   ---------------------------------------------------------------------
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 11);
+   afficherEnsembleDescendants(arbre => arbre,individu => ind_1, generation => 2);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   New_Line;New_Line;
+
+   New_Line;
+   ind_1 := individu_int.creerIndividu(identifiant => 11);
+   afficherEnsembleDescendants(arbre => arbre,individu => ind_1, generation => 10);
+   Put_Line("Resultat attendu : ");
+   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel ) ");
+   New_Line;New_Line;
+
+   ind_1 := individu_int.creerIndividu(identifiant => 12);
+   begin
+      afficherEnsembleDescendants(arbre => arbre,individu => ind_1, generation => 2);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
+
+   ---------------------------------------------------------------------
+   -- Test de procedure supprimerNoeudEtAncetres(arbre : in out T_Arbre_Bin ; individu : in T_Individu);
+   ---------------------------------------------------------------------
+
+   ind_1 := individu_int.creerIndividu(identifiant => 11);
+   supprimerNoeudEtAncetres(arbre => arbre, individu => ind_1);
+   pragma Assert(arbre_genealogique.taille(arbre => arbre) = 8);
+   ind_1 := individu_int.creerIndividu(identifiant => 8);
+   pragma Assert(arbre_genealogique.estVide(arbre_genealogique.getSousArbreDroit(arbre => arbre_genealogique.recherche(arbre => arbre, element => ind_1, retourner_precedent => False))));
+   pragma Assert(arbre_genealogique.estVide(arbre_genealogique.getSousArbreGauche(arbre => arbre_genealogique.recherche(arbre => arbre, element => ind_1, retourner_precedent => False))));
+
+   ind_1 := individu_int.creerIndividu(identifiant => 3);
+   supprimerNoeudEtAncetres(arbre => arbre, individu => ind_1);
+   pragma Assert(arbre_genealogique.taille(arbre => arbre) = 4);
+   ind_1 := individu_int.creerIndividu(identifiant => 1);
+   pragma Assert(arbre_genealogique.estVide(arbre_genealogique.getSousArbreGauche(arbre => arbre_genealogique.recherche(arbre => arbre, element => ind_1, retourner_precedent => False))));
+
+   ind_1 := individu_int.creerIndividu(identifiant => 12);
+   begin
+      supprimerNoeudEtAncetres(arbre => arbre, individu => ind_1);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.element_absent =>
+         pragma Assert(True);
+   end;
+
+   ind_1 := individu_int.creerIndividu(identifiant => 1);
+   supprimerNoeudEtAncetres(arbre => arbre, individu => ind_1);
+   pragma Assert(arbre_genealogique.taille(arbre => arbre) = 0);
+   pragma Assert(arbre_genealogique.estVide(arbre => arbre));
+
+
+   ---------------------------------------------------------------------
+   -- Test des modules avec un arbre désormais vide
+   ---------------------------------------------------------------------
+   ind_1 := individu_int.creerIndividu(identifiant => 1);
+   begin
+      nb_ancetres := obtenirNombreAncetres(arbre => arbre, individu => ind_1);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherArbreGenealogique(arbre => arbre);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      supprimerNoeudEtAncetres(arbre => arbre, individu => ind_1);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleUnSeulParent(arbre => arbre);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleDeuxParents(arbre => arbre);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleAucunParent(arbre => arbre);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleAncetresGenerationUnique(arbre => arbre, individu => ind_1, generation => 0);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleDescendantsGenerationUnique(arbre => arbre, individu => ind_1,generation => 0);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+   begin
+      afficherEnsembleDescendants(arbre => arbre, individu => ind_1, generation => 0);
+      pragma Assert(False);
+   exception
+      when arbre_genealogique.arbre_null =>
+         pragma Assert(True);
+   end;
+
+
    Put_Line("Fin du test de arbre_genealog");
 end test_arbre_genealog;

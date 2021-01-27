@@ -68,10 +68,16 @@ package body Arbre_Genealog is
          else
             null;
          end if;
-         afficherEnsembleUnSeulParent(arbre => getSousArbreDroit(arbre => arbre));
-         afficherEnsembleUnSeulParent(arbre => getSousArbreGauche(arbre => arbre));
+         begin
+            afficherEnsembleUnSeulParent(arbre => getSousArbreDroit(arbre => arbre));
+         exception when arbre_null => null;
+         end;
+         begin
+            afficherEnsembleUnSeulParent(arbre => getSousArbreGauche(arbre => arbre));
+         exception when arbre_null => null;
+         end;
       else
-         null;
+         raise arbre_null;
       end if;
    end;
 
@@ -85,10 +91,16 @@ package body Arbre_Genealog is
          else
             null;
          end if;
-         afficherEnsembleDeuxParents(arbre => getSousArbreDroit(arbre => arbre));
-         afficherEnsembleDeuxParents(arbre => getSousArbreGauche(arbre => arbre));
+         begin
+            afficherEnsembleDeuxParents(arbre => getSousArbreDroit(arbre => arbre));
+         exception when arbre_null => null;
+         end;
+         begin
+            afficherEnsembleDeuxParents(arbre => getSousArbreGauche(arbre => arbre));
+         exception when arbre_null => null;
+         end;
       else
-         null;
+         raise arbre_null;
       end if;
    end;
 
@@ -102,10 +114,16 @@ package body Arbre_Genealog is
          else
             null;
          end if;
-         afficherEnsembleAucunParent(arbre => getSousArbreDroit(arbre => arbre));
-         afficherEnsembleAucunParent(arbre => getSousArbreGauche(arbre => arbre));
+         begin
+            afficherEnsembleAucunParent(arbre => getSousArbreDroit(arbre => arbre));
+         exception when arbre_null => null;
+         end;
+         begin
+            afficherEnsembleAucunParent(arbre => getSousArbreGauche(arbre => arbre));
+         exception when arbre_null => null;
+         end;
       else
-         null;
+         raise arbre_null;
       end if;
    end;
 
@@ -238,11 +256,19 @@ package body Arbre_Genealog is
          raise arbre_null;
       else
          individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => false);
-         for generation_parcourue in 1..generation loop
-            individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
-         end loop;
-         afficherIndividu(getElement(individu_recherche));
-         New_Line;
+         if estVide(individu_recherche) then
+            raise element_absent;
+         else
+            begin
+            for generation_parcourue in 1..generation loop
+               individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
+            end loop;
+            afficherIndividu(getElement(individu_recherche));
+            New_Line;
+            exception
+               when arbre_null => null;
+            end;
+         end if;
       end if;
    end;
 
@@ -259,7 +285,7 @@ package body Arbre_Genealog is
             raise element_absent;
          else
             individu_recherche := recherche(arbre => arbre, element => individu, retourner_precedent => true);
-            while generation_parcourue <= generation and not  estVide(individu_recherche) loop
+            while generation_parcourue <= generation and not estVide(individu_recherche) loop
                generation_parcourue := generation_parcourue +1;
                afficherIndividu(getElement(individu_recherche));
                New_Line;
@@ -267,7 +293,8 @@ package body Arbre_Genealog is
                   individu_recherche := recherche(arbre => arbre, element => getElement(individu_recherche), retourner_precedent => true);
                exception
                      -- lorsque la racine de l'arbre est atteinte, rechercher l'element précédent génère une exception
-                  when element_absent => null;
+                  when element_absent => generation_parcourue := generation +1;
+
                end;
             end loop;
          end if;
