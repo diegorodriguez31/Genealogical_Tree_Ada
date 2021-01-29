@@ -1,12 +1,13 @@
 package body Arbre_Genealog is
 
 
-   --Indique comment afficher l'identifiant d'un individu
+   --Affiche un l'identifiant représenté sous la forme d'un entier
    procedure affichIdentifiant(identifiant : in Integer) is
    begin
       Put(Integer'Image(identifiant));
    end affichIdentifiant;
 
+   --Indique si l'identifiant représenté sous la forme d'un entier est null
    function nullIdendifiant(identifiant : in Integer) return Boolean is
    begin
       return false; -- Un entier ne peut être null

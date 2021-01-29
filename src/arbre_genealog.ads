@@ -6,8 +6,23 @@ package arbre_genealog is
 
    type T_Id is new Integer;
 
+   -- Semantique : Affiche un l'identifiant représenté sous la forme d'un entier
+   -- Paramètres :
+   --    identifiant : IN Integer, l'identifiant à ajouter
+   -- Pré-conditions : Néant
+   -- Post-conditions : l'identifiant est affiché à l'écran
+   -- Exceptions : Néant
    procedure affichIdentifiant(identifiant : in Integer);
+
+   -- Semantique : Indique si l'identifiant représenté sous la forme d'un entier est null
+   -- Paramètres :
+   --    identifiant : IN Integer, l'identifiant dont le caractère null est à determiner
+   -- Pré-conditions : Néant
+   -- Post-conditions : Néant
+   -- Retourne : False, un entier n'est jamais null.
+   -- Exceptions : Néant
    function nullIdendifiant(identifiant : in Integer) return Boolean;
+
    -- Instanciation d'un individu avec l'identifiant de type Integer
    package individu_int is new P_Individu(T_Identifiant => Integer, estEquivalentIdentifiant => "=", afficherIdentifiant => affichIdentifiant, estNullIdentifiant => nullIdendifiant );
    use individu_int;
@@ -16,7 +31,11 @@ package arbre_genealog is
    package arbre_genealogique is new Arbre_Bin(T_Element => T_Individu, estEquivalent => estEquivalentIndividu);
    use arbre_genealogique;
 
-   -- Semantique : Crée un arbre minimal coutenant le seul noeud racine, sans père ni mère
+   ------------------------------------------------------------------------------------------------------------------
+   ------------------------------------------------------------------------------------------------------------------
+
+
+   -- Semantique : Crée un arbre minimal contenant le seul nœud racine, sans père ni mère
    -- Paramètres :
    --     arbre : IN OUT T_Arbre_Bin, Arbre crée
    --     informations_individu : IN T_Individu, Individu ajouté dans l'arbre lors de sa création
