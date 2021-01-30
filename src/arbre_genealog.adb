@@ -251,7 +251,7 @@ package body Arbre_Genealog is
       sous_arbre_droit : T_Arbre_Bin;
    begin
       -- R1 : Si le compteur est inférieur ou égal au nombre de génération a traiter
-      if generation <= compteurGenerationRelative then
+      if generation >= compteurGenerationRelative then
          -- R2 on affiche l'individu courant
          afficherIndividu(individu => getElement(arbre => arbre));
          New_Line;

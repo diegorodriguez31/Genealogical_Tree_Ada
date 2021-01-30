@@ -140,15 +140,15 @@ begin
    New_Line;New_Line;
    afficherArbreGenealogique(arbre => arbre);New_Line;New_Line;
    Put_Line("Resultat attendu : ");
-   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel )");
-   Put_Line(" -- Mere :  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
-   Put_Line("     -- Mere :  6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
-   Put_Line("         -- Mere :  8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line("             -- Pere :  11 ( Nom : Moulin, Prenom : Jean ) ");
-   Put_Line("         -- Pere :  7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
-   Put_Line(" -- Pere :  2 ( Nom : DE FUNES, Prenom : Louis ) ");
-   Put_Line("     -- Pere :  9 ( Nom : CARDIN, Prenom : Pierre ) ");
-   Put_Line("         -- Mere :  10 ( Nom : VEIL, Prenom : Simone )");
+   Put_Line("Id:  1 ( Nom : PAGNOL, Prenom : Marcel )");
+   Put_Line(" -- Mere :Id:   3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("     -- Mere :Id:   6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line("         -- Mere :Id:   8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("             -- Pere :Id:   11 ( Nom : Moulin, Prenom : Jean ) ");
+   Put_Line("         -- Pere :Id:   7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line(" -- Pere :Id:   2 ( Nom : DE FUNES, Prenom : Louis ) ");
+   Put_Line("     -- Pere :Id:   9 ( Nom : CARDIN, Prenom : Pierre ) ");
+   Put_Line("         -- Mere :Id:   10 ( Nom : VEIL, Prenom : Simone )");
    New_Line;
 
    begin
@@ -165,10 +165,10 @@ begin
    New_Line;
    afficherEnsembleUnSeulParent(arbre => arbre);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 2 ( Nom : DE FUNES, Prenom : Louis ) ");
-   Put_Line(" 9 ( Nom : CARDIN, Prenom : Pierre ) ");
-   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  2 ( Nom : DE FUNES, Prenom : Louis ) ");
+   Put_Line("Id:  9 ( Nom : CARDIN, Prenom : Pierre ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
    New_Line;New_Line;
 
    ---------------------------------------------------------------------
@@ -177,8 +177,8 @@ begin
    New_Line;
    afficherEnsembleDeuxParents(arbre => arbre);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel ) ");
-   Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone )  ");
+   Put_Line("Id:  1 ( Nom : PAGNOL, Prenom : Marcel ) ");
+   Put_Line("Id:  6 ( Nom : DE BEAUVOIR, Prenom : Simone )  ");
    New_Line;New_Line;
 
    ---------------------------------------------------------------------
@@ -187,9 +187,9 @@ begin
    New_Line;
    afficherEnsembleAucunParent(arbre => arbre);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 10 ( Nom : VEIL, Prenom : Simone ) ");
-   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
-   Put_Line(" 11 ( Nom : Moulin, Prenom : Jean )  ");
+   Put_Line("Id:  10 ( Nom : VEIL, Prenom : Simone ) ");
+   Put_Line("Id:  7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line("Id:  11 ( Nom : Moulin, Prenom : Jean )  ");
    New_Line;New_Line;
 
    ---------------------------------------------------------------------
@@ -199,16 +199,16 @@ begin
    ind_1 := individu_int.creerIndividu(identifiant => 3);
    afficherEnsembleAncetresGenerationUnique(arbre => arbre,individu => ind_1, generation => 2);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
    New_Line;New_Line;
 
    ind_1 := individu_int.creerIndividu(identifiant => 1);
    afficherEnsembleAncetresGenerationUnique(arbre => arbre,individu => ind_1, generation => 3);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
-   Put_Line(" 10 ( Nom : VEIL, Prenom : Simone ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line("Id:  10 ( Nom : VEIL, Prenom : Simone ) ");
 
    ind_1 := individu_int.creerIndividu(identifiant => 12);
    begin
@@ -226,19 +226,17 @@ begin
    ind_1 := individu_int.creerIndividu(identifiant => 3);
    afficherEnsembleAncetres(arbre => arbre,individu => ind_1, generation => 2);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 11 ( Nom : Moulin, Prenom : Jean ) ");
-   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("Id:  6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
    New_Line;New_Line;
 
    New_Line;
    ind_1 := individu_int.creerIndividu(identifiant => 3);
    afficherEnsembleAncetres(arbre => arbre,individu => ind_1, generation => 0);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 11 ( Nom : Moulin, Prenom : Jean ) ");
-   Put_Line(" 7 ( Nom : DE BEAUVOIR, Prenom : Jean ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
    New_Line;New_Line;
 
    ind_1 := individu_int.creerIndividu(identifiant => 12);
@@ -257,14 +255,14 @@ begin
    ind_1 := individu_int.creerIndividu(identifiant => 3);
    afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 1);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel ) ");
+   Put_Line("Id:  1 ( Nom : PAGNOL, Prenom : Marcel ) ");
    New_Line;New_Line;
 
    New_Line;
    ind_1 := individu_int.creerIndividu(identifiant => 8);
    afficherEnsembleDescendantsGenerationUnique(arbre => arbre,individu => ind_1, generation => 2);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
    New_Line;New_Line;
 
    ind_1 := individu_int.creerIndividu(identifiant => 12);
@@ -292,19 +290,19 @@ begin
    ind_1 := individu_int.creerIndividu(identifiant => 11);
    afficherEnsembleDescendants(arbre => arbre,individu => ind_1, generation => 2);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
-   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
    New_Line;New_Line;
 
    New_Line;
    ind_1 := individu_int.creerIndividu(identifiant => 11);
    afficherEnsembleDescendants(arbre => arbre,individu => ind_1, generation => 10);
    Put_Line("Resultat attendu : ");
-   Put_Line(" 8 ( Nom : CURIE, Prenom : Marie ) ");
-   Put_Line(" 6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
-   Put_Line(" 3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
-   Put_Line(" 1 ( Nom : PAGNOL, Prenom : Marcel ) ");
+   Put_Line("Id:  8 ( Nom : CURIE, Prenom : Marie ) ");
+   Put_Line("Id:  6 ( Nom : DE BEAUVOIR, Prenom : Simone ) ");
+   Put_Line("Id:  3 ( Nom : DE FUNES, Prenom : Jeanne ) ");
+   Put_Line("Id:  1 ( Nom : PAGNOL, Prenom : Marcel ) ");
    New_Line;New_Line;
 
    ind_1 := individu_int.creerIndividu(identifiant => 12);

@@ -49,7 +49,7 @@ package body menu is
       Put_Line("=                                                                                          =");
       Put_Line("=  Selections possibles :                                                                  =");
       Put_Line("=                                                                                          =");
-      Put_Line("=  1)  Recréer un arbre minimal coutenant le seul noeud racine, sans père ni mère          =");
+      Put_Line("=  1)  Recréer un arbre minimal contenant le seul noeud racine, sans père ni mère          =");
       Put_Line("=  2)  Ajouter un parent (mère ou père) à un noeud donné                                   =");
       Put_Line("=  3)  Afficher le nombre d'ancêtres connus d'un individu donné (lui compris)              =");
       Put_Line("=  4)  Afficher l'arbre généalogique à partir d'un noeud donné                             =");
@@ -147,6 +147,9 @@ package body menu is
    begin
       abr := arbre_genealogique.recherche(arbre => arbre, element => getIndividuIdentifiant, retourner_precedent => false);
       afficherArbreGenealogique(arbre => abr);
+   exception
+      when arbre_genealogique.arbre_null =>
+         Put_Line("Aucun individu ne porte cet identifiant ou la generation demandée ne corresponds à aucun individu. Veuillez recommencer");
    end selection_afficherArbreGenealogiqueNoeudDonne;
 
    -- R0 : Supprimer, pour un arbre, un noeud et ses ancêtres
