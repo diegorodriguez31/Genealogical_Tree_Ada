@@ -70,7 +70,7 @@ package body Arbre_Bin is
       --Si la racine correponds à l'element recherché, le retourner
       if not estVide(noeud) and then estEquivalent(noeud.all.element, element) then
          if retourner_precedent then
-            raise element_absent with "Le noeud demandé est à la base de l'arbre binaire. Il n'as donc pas de précédent";
+            raise element_absent with "Le noeud demande est a la base de l'arbre binaire. Il n'as donc pas de precedent";
          else
             return noeud;
          end if;
@@ -111,7 +111,7 @@ package body Arbre_Bin is
          raise arbre_null with "Modification d'un arbre vide impossible";
       else
          if  recherche(arbre => arbre, element => tar_element, retourner_precedent => False) /= null then
-            raise element_existant with ("L'élément cible à une valeur deja existante dans l'arbre");
+            raise element_existant with ("L'element cible à une valeur deja existante dans l'arbre");
          else
             noeud := recherche(arbre => arbre, element => src_element, retourner_precedent => false);
             if estVide(noeud) then
